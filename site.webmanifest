@@ -1,0 +1,14 @@
+{
+  "name": "Admin Toolkit",
+  "short_name": "Admin Tools",
+  "description": "Free, privacy-friendly browser tools for CIDR, chmod, cron and Unix timestamps.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#07111f",
+  "theme_color": "#07111f",
+  "icons": [
+    { "src": "/assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

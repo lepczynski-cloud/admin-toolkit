@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cron Expression Generator — Standard Unix five-field schedules</title>
+  <meta name="description" content="Generate common standard five-field Unix cron expressions for intervals, hourly, daily, weekday, weekly and monthly jobs.">
+  <link rel="canonical" href="https://admintoolkit.lepczynski.it/cron/">
+  <meta property="og:type" content="website"><meta property="og:title" content="Cron Expression Generator — Admin Toolkit"><meta property="og:description" content="Build common Unix cron schedules in your browser."><meta property="og:url" content="https://admintoolkit.lepczynski.it/cron/"><meta property="og:image" content="https://admintoolkit.lepczynski.it/assets/og/admin-toolkit.png"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#07111f">
+  <link rel="icon" href="/assets/icons/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/assets/icons/icon-192.png"><link rel="manifest" href="/site.webmanifest"><link rel="stylesheet" href="/assets/css/styles.css">
+  <script defer src="/assets/js/config.js"></script><script defer src="/assets/js/site.js"></script><script defer src="/assets/js/cron.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a><header class="site-header"><div class="header-inner"><a class="brand" href="/"><span class="brand-mark" aria-hidden="true"></span><span>Admin Toolkit</span></a><nav class="site-nav" aria-label="Main navigation"><a href="/cidr/">CIDR</a><a href="/chmod/">chmod</a><a href="/cron/" aria-current="page">Cron</a><a href="/timestamp/">Timestamp</a></nav></div></header>
+  <main id="main">
+    <section class="tool-hero"><div class="container"><div class="breadcrumbs"><a href="/">Admin Toolkit</a><span aria-hidden="true">/</span><span>Cron Generator</span></div><span class="eyebrow">Task scheduling</span><h1>Cron Expression Generator</h1><p class="lead">Generate common standard five-field Unix cron schedules and copy the expression into your crontab.</p></div></section>
+    <section class="container tool-layout">
+      <div class="panel">
+        <div class="form-grid">
+          <div class="form-group full"><label for="cron-pattern">Schedule type</label><select id="cron-pattern"><option value="minutes">Every N minutes</option><option value="hourly">Every hour</option><option value="daily" selected>Every day</option><option value="weekdays">Monday to Friday</option><option value="weekly">Every week</option><option value="monthly">Every month</option><option value="custom">Custom expression</option></select></div>
+          <div class="form-group full" data-cron-group="minutes"><label for="cron-interval">Minute interval</label><input id="cron-interval" type="number" min="1" max="59" value="5"></div>
+          <div class="form-group full" data-cron-group="hourly"><label for="cron-minute">Minute of every hour</label><input id="cron-minute" type="number" min="0" max="59" value="0"></div>
+          <div class="form-group full" data-cron-group="daily weekdays weekly monthly"><label for="cron-time">Time</label><input id="cron-time" type="time" value="08:00"></div>
+          <div class="form-group full" data-cron-group="weekly"><label for="cron-weekday">Day of week</label><select id="cron-weekday"><option value="1">Monday</option><option value="2">Tuesday</option><option value="3">Wednesday</option><option value="4">Thursday</option><option value="5">Friday</option><option value="6">Saturday</option><option value="0">Sunday</option></select></div>
+          <div class="form-group full" data-cron-group="monthly"><label for="cron-monthday">Day of month</label><input id="cron-monthday" type="number" min="1" max="31" value="1"></div>
+          <div class="form-group full" data-cron-group="custom"><label for="cron-custom">Five-field expression</label><input id="cron-custom" class="mono" type="text" value="0 8 * * 1-5" autocomplete="off" spellcheck="false"><p class="help-text">Order: minute, hour, day of month, month, day of week.</p></div>
+        </div>
+        <div class="preset-row" style="margin-top:1rem"><button class="button ghost small" type="button" data-cron-preset="minutes">Every 5 min</button><button class="button ghost small" type="button" data-cron-preset="daily" data-cron-time="08:00">Daily 08:00</button><button class="button ghost small" type="button" data-cron-preset="weekdays" data-cron-time="09:00">Weekdays 09:00</button><button class="button ghost small" type="button" data-cron-preset="monthly" data-cron-time="00:00">Monthly</button></div>
+        <div class="alert error" id="cron-error" role="alert" hidden></div><div class="privacy-note"><span aria-hidden="true">✓</span><div><strong>Local generator.</strong> Schedule settings are not submitted or logged anywhere.</div></div>
+      </div>
+      <aside class="panel sticky" aria-live="polite">
+        <div class="result-highlight"><div class="result-label">Cron expression</div><p class="result-value" id="cron-expression">0 8 * * *</p></div>
+        <div class="cron-field-labels" aria-hidden="true"><span>minute</span><span>hour</span><span>day</span><span>month</span><span>weekday</span></div>
+        <div class="result-card" style="margin-top:1rem"><div class="result-label">Meaning</div><p class="result-value" id="cron-description"></p></div>
+        <div class="alert note" id="cron-note"></div>
+        <div class="action-row" style="margin-top:1rem"><button class="button secondary" type="button" data-copy-target="#cron-expression">Copy expression</button></div>
+      </aside>
+    </section>
+    <section class="content-section"><div class="container prose"><h2>Standard Unix cron format</h2><p>This generator uses the common five-field format: minute, hour, day of month, month and day of week. The expression <code>0 8 * * 1-5</code> runs at 08:00 from Monday through Friday.</p><p>The actual execution time depends on the timezone configured on the machine or container running the cron daemon. Public holidays are not automatically excluded, and jobs scheduled on day 29, 30 or 31 will not run in months that lack that date.</p><h2>Not every scheduler uses the same syntax</h2><p>Quartz, AWS EventBridge, Kubernetes CronJobs and other platforms can add fields or use different day-of-week rules. Treat the result here as standard Unix cron and verify it against the documentation for the target system.</p><div class="callout"><h3>Learn and build with me</h3><p>Find more practical Linux, cloud and electronics content on my blog and YouTube channel.</p><div class="external-links"><a class="button" data-external-link="blog" href="https://lepczynski.it">Visit the blog</a><a class="button secondary" data-external-link="youtube" href="https://www.youtube.com/@WojciechLepczynski">YouTube channel</a><a class="button ghost" data-external-link="github" href="https://github.com/lepczynski-cloud/admin-toolkit">Source code</a><a class="button ghost" data-external-link="video" href="#" hidden>Watch the project video</a></div></div></div></section>
+  </main>
+  <footer class="site-footer"><div class="footer-inner"><p class="footer-copy">© <span data-current-year></span> Wojciech Lepczyński. No cookies, no tracking, no backend.</p><div class="footer-links"><a href="/">All tools</a><a data-external-link="blog" href="https://lepczynski.it">Blog</a><a data-external-link="youtube" href="https://www.youtube.com/@WojciechLepczynski">YouTube</a><a data-external-link="github" href="https://github.com/lepczynski-cloud/admin-toolkit">GitHub</a></div></div></footer>
+</body>
+</html>
