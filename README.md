@@ -117,3 +117,13 @@ Created by [Wojciech Lepczyński](https://lepczynski.it).
 
 - Blog: https://lepczynski.it
 - YouTube: https://www.youtube.com/@WojciechLepczynski
+
+## Cloudflare Workers deployment
+
+The public website is stored in `public/`. Cloudflare Workers Builds reads `wrangler.jsonc` from the repository root and deploys the static assets with:
+
+```bash
+npx wrangler deploy
+```
+
+No build step, backend, environment variables, or database is required.
