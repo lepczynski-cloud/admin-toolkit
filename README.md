@@ -1,12 +1,13 @@
 # Admin Toolkit
 
-Free, privacy-friendly browser tools for everyday Linux, networking and administration tasks.
+Free, privacy-friendly browser tools for everyday Linux, networking and system administration tasks.
 
-**Planned public URL:** https://admintoolkit.lepczynski.it
+**Live site:** [admintoolkit.lepczynski.it](https://admintoolkit.lepczynski.it/)
 
-![Admin Toolkit](assets/og/admin-toolkit.png)
+![Admin Toolkit preview](public/assets/og/admin-toolkit.png)
 
-Polish deployment guide: [SETUP-PL.md](SETUP-PL.md)
+- [Polish setup guide](SETUP-PL.md)
+- [Cloudflare Workers Builds configuration](CLOUDFLARE-GITHUB.md)
 
 ## Included tools
 
@@ -18,94 +19,145 @@ Polish deployment guide: [SETUP-PL.md](SETUP-PL.md)
 ## Design goals
 
 - Static HTML, CSS and JavaScript.
-- No backend, account, cookies or analytics.
-- Inputs are calculated locally in the browser.
+- No backend, user account, cookies or analytics.
+- Calculations are performed locally in the browser.
 - Installable PWA with offline support after the first successful visit.
-- Separate, shareable and indexable URL for each tool.
-- Automatic deployment from GitHub through Cloudflare Pages.
+- Separate, shareable and indexable URL for every tool.
+- Automatic deployment from GitHub with Cloudflare Workers Builds.
 
 ## Project structure
 
 ```text
 admin-toolkit/
-├── index.html
-├── 404.html
-├── cidr/index.html
-├── chmod/index.html
-├── cron/index.html
-├── timestamp/index.html
-├── assets/
-│   ├── css/styles.css
-│   ├── js/
-│   ├── icons/
-│   └── og/
-├── _headers
-├── _redirects
-├── robots.txt
-├── sitemap.xml
-├── site.webmanifest
-└── sw.js
+├── public/                         # Files published as the website
+│   ├── index.html
+│   ├── 404.html
+│   ├── cidr/
+│   │   └── index.html
+│   ├── chmod/
+│   │   └── index.html
+│   ├── cron/
+│   │   └── index.html
+│   ├── timestamp/
+│   │   └── index.html
+│   ├── assets/
+│   │   ├── css/
+│   │   │   └── styles.css
+│   │   ├── js/
+│   │   │   ├── config.js
+│   │   │   ├── site.js
+│   │   │   ├── cidr.js
+│   │   │   ├── chmod.js
+│   │   │   ├── cron.js
+│   │   │   └── timestamp.js
+│   │   ├── icons/
+│   │   └── og/
+│   │       └── admin-toolkit.png
+│   ├── _headers
+│   ├── _redirects
+│   ├── robots.txt
+│   ├── sitemap.xml
+│   ├── site.webmanifest
+│   └── sw.js
+├── wrangler.jsonc                 # Cloudflare Worker configuration
+├── CLOUDFLARE-GITHUB.md
+├── SETUP-PL.md
+├── LICENSE
+├── .gitignore
+└── README.md
 ```
 
-## Update blog, YouTube, repository and project links
+The `public/` directory is the deployment source configured in `wrangler.jsonc`. Its contents become the root of the published website. Therefore:
 
-Edit one file:
+- repository path: `public/assets/css/styles.css`
+- public URL: `https://admintoolkit.lepczynski.it/assets/css/styles.css`
+
+Do not add `/public` to links used inside HTML, CSS, JavaScript, the web manifest, sitemap or Service Worker.
+
+## Configure blog, YouTube and project links
+
+Edit:
 
 ```text
-assets/js/config.js
+public/assets/js/config.js
 ```
 
-The blog and YouTube channel are already configured. If the repository lives under another GitHub account, change `githubUrl`.
-
-After publishing the related article and video, fill in:
+The blog, YouTube channel and GitHub repository are already configured. After publishing the related article and video, add their complete URLs:
 
 ```js
 projectArticleUrl: "https://lepczynski.it/...",
 projectVideoUrl: "https://www.youtube.com/watch?v=..."
 ```
 
-Buttons for empty URLs remain hidden.
+Buttons linked to empty values remain hidden.
 
 ## Run locally
 
-No build process is required. Serve the folder through a local web server so the service worker and absolute paths work correctly.
-
-With Python:
+No build process is required. Start a local HTTP server from the repository root and use `public/` as its document directory:
 
 ```bash
-python -m http.server 8080
+python -m http.server 8080 --directory public
 ```
 
-Then open:
+On Windows, if `python` is not available as a command:
+
+```powershell
+py -m http.server 8080 --directory public
+```
+
+Open:
 
 ```text
-http://localhost:8080
+http://localhost:8080/
 ```
 
-## Deploy with Cloudflare Pages
+Serving the repository root directly is incorrect because browser paths such as `/assets/...` are relative to the deployed `public/` directory.
 
-1. Push all files to the public GitHub repository.
-2. In Cloudflare, open **Workers & Pages**.
-3. Select **Create application** → **Pages** → **Import an existing Git repository**.
-4. Authorize GitHub and choose the `admin-toolkit` repository.
-5. Use `main` as the production branch.
-6. Leave the framework preset as **None**.
-7. Set the build command to `exit 0`.
-8. Set the build output directory to `.` because the deploy-ready files are stored in the repository root.
-9. Deploy.
-10. In the Pages project, open **Custom domains** and add `admintoolkit.lepczynski.it`.
+## Deploy with Cloudflare Workers Builds
 
-Every push to `main` will trigger a new production deployment.
+This project is deployed as a static-assets-only Cloudflare Worker.
 
-## Updating the offline cache
+Cloudflare settings:
 
-When adding or renaming files, update the `PRECACHE_URLS` list in `sw.js`. When you need browsers to discard an old cache immediately, change:
+| Setting | Value |
+|---|---|
+| Repository | `admin-toolkit` |
+| Production branch | `main` |
+| Build command | leave empty |
+| Deploy command | `npx wrangler deploy` |
+| Non-production deploy command | `npx wrangler versions upload` |
+| Root directory | `/` or repository root |
+| Build variables | none |
+
+`wrangler.jsonc` deploys only `./public`:
+
+```json
+{
+  "name": "admin-toolkit",
+  "compatibility_date": "2026-07-26",
+  "assets": {
+    "directory": "./public",
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
+  }
+}
+```
+
+Every push to `main` triggers a production deployment. See [CLOUDFLARE-GITHUB.md](CLOUDFLARE-GITHUB.md) for the exact dashboard configuration.
+
+## Offline cache
+
+The Service Worker uses a versioned cache and refreshes static assets in the background. When you add or remove precached files, update `PRECACHE_URLS` in:
+
+```text
+public/sw.js
+```
+
+For a clean cache migration, also increment:
 
 ```js
-const CACHE_NAME = "admin-toolkit-v1";
+const CACHE_NAME = "admin-toolkit-v2";
 ```
-
-to a new value such as `admin-toolkit-v2`.
 
 ## License
 
@@ -113,17 +165,8 @@ MIT License. See [LICENSE](LICENSE).
 
 ## Author
 
-Created by [Wojciech Lepczyński](https://lepczynski.it).
+Created by [Wojciech Lepczyński](https://lepczynski.it/).
 
-- Blog: https://lepczynski.it
-- YouTube: https://www.youtube.com/@WojciechLepczynski
-
-## Cloudflare Workers deployment
-
-The public website is stored in `public/`. Cloudflare Workers Builds reads `wrangler.jsonc` from the repository root and deploys the static assets with:
-
-```bash
-npx wrangler deploy
-```
-
-No build step, backend, environment variables, or database is required.
+- [Blog](https://lepczynski.it/)
+- [YouTube](https://www.youtube.com/@WojciechLepczynski)
+- [GitHub](https://github.com/lepczynski-cloud)

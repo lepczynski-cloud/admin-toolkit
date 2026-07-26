@@ -1,37 +1,93 @@
-# Admin Toolkit — uruchomienie na GitHubie i Cloudflare Pages
+# Admin Toolkit — GitHub i Cloudflare Workers Builds
 
-Ten projekt jest statyczną witryną napisaną w HTML, CSS i JavaScript. Nie wymaga serwera aplikacyjnego, bazy danych ani procesu budowania.
+Admin Toolkit jest statyczną stroną napisaną w HTML, CSS i JavaScript. Nie wymaga backendu, bazy danych ani procesu kompilowania.
 
 Docelowy adres:
 
 ```text
-https://admintoolkit.lepczynski.it
+https://admintoolkit.lepczynski.it/
 ```
 
-## 1. Utworzenie repozytorium GitHub
+## 1. Struktura repozytorium
 
-Utwórz publiczne repozytorium o nazwie:
+Pliki przeznaczone do publikacji znajdują się w katalogu:
 
 ```text
-admin-toolkit
+public/
 ```
 
-Zalecany opis:
+Plik:
 
 ```text
-Free, privacy-friendly browser tools for CIDR, chmod, cron expressions and Unix timestamps — built with vanilla HTML, CSS and JavaScript.
+wrangler.jsonc
 ```
 
-Podczas tworzenia repozytorium pozostaw wyłączone opcje dodania README, `.gitignore` i licencji, ponieważ wszystkie te pliki są już w tym projekcie.
+pozostaje w głównym katalogu repozytorium i wskazuje Cloudflare katalog statycznych zasobów:
 
-Po utworzeniu repozytorium wybierz **Add file → Upload files** i prześlij całą zawartość tego katalogu. Plik `index.html` musi znaleźć się w głównym katalogu repozytorium, a nie wewnątrz dodatkowego folderu.
+```json
+"assets": {
+  "directory": "./public"
+}
+```
 
-## 2. Konfiguracja linków
-
-Publiczne adresy są zapisane w pliku:
+W repozytorium powinien być widoczny następujący układ:
 
 ```text
-assets/js/config.js
+admin-toolkit/
+├── public/
+│   ├── index.html
+│   ├── 404.html
+│   ├── assets/
+│   ├── cidr/
+│   ├── chmod/
+│   ├── cron/
+│   ├── timestamp/
+│   ├── robots.txt
+│   ├── sitemap.xml
+│   ├── site.webmanifest
+│   └── sw.js
+├── wrangler.jsonc
+├── README.md
+├── CLOUDFLARE-GITHUB.md
+├── SETUP-PL.md
+├── LICENSE
+└── .gitignore
+```
+
+## 2. Ważna zasada dotycząca ścieżek
+
+W repozytorium plik obrazu ma ścieżkę:
+
+```text
+public/assets/og/admin-toolkit.png
+```
+
+Po wdrożeniu katalog `public/` staje się katalogiem głównym witryny, dlatego publiczny adres tego samego pliku to:
+
+```text
+https://admintoolkit.lepczynski.it/assets/og/admin-toolkit.png
+```
+
+W kodzie strony należy więc używać:
+
+```html
+/assets/og/admin-toolkit.png
+```
+
+a nie:
+
+```html
+/public/assets/og/admin-toolkit.png
+```
+
+Prefiks `public/` jest potrzebny tylko w ścieżkach repozytorium i dokumentacji dotyczącej plików.
+
+## 3. Konfiguracja linków
+
+Adresy bloga, YouTube, GitHuba oraz przyszłego filmu i artykułu znajdują się w:
+
+```text
+public/assets/js/config.js
 ```
 
 Domyślna konfiguracja:
@@ -47,70 +103,103 @@ window.ADMIN_TOOLKIT_CONFIG = Object.freeze({
 });
 ```
 
-Gdy artykuł i film będą gotowe, wpisz ich pełne adresy w `projectArticleUrl` i `projectVideoUrl`. Przyciski są ukryte, dopóki pola pozostają puste.
+Po opublikowaniu materiałów wpisz pełne adresy do `projectArticleUrl` i `projectVideoUrl`. Przyciski pozostają ukryte, dopóki wartości są puste.
 
-## 3. Wdrożenie w Cloudflare Pages
+## 4. Połączenie repozytorium z Cloudflare
 
-W Cloudflare otwórz **Workers & Pages**, utwórz projekt Pages i połącz go z repozytorium GitHub `admin-toolkit`.
+W panelu Cloudflare otwórz istniejącego Workera `admin-toolkit` i połącz repozytorium GitHub.
 
-Ustawienia wdrożenia:
+Ustawienia:
 
 ```text
+Repository: admin-toolkit
 Production branch: main
-Framework preset: None
-Build command: exit 0
-Build output directory: .
-Root directory: pozostaw puste
-Environment variables: brak
+Build command: pozostaw puste
+Deploy command: npx wrangler deploy
+Non-production branch deploy command: npx wrangler versions upload
+Root directory: / lub główny katalog repozytorium
+API token: Create new token
+Build variables: brak
+Build caching: domyślne
 ```
 
-Po pierwszym wdrożeniu przetestuj otrzymany adres w domenie `pages.dev`.
+Nie ustawiaj Root directory na `/public`. Cloudflare musi uruchomić Wranglera w katalogu, w którym znajduje się `wrangler.jsonc`.
 
-## 4. Podłączenie subdomeny
+## 5. Nazwa Workera
 
-W projekcie Cloudflare Pages wybierz **Custom domains → Set up a domain** i wpisz:
+W `wrangler.jsonc` znajduje się:
+
+```json
+"name": "admin-toolkit"
+```
+
+Ta wartość musi być identyczna z nazwą istniejącego Workera w Cloudflare. Dzięki temu wdrożenie z GitHuba zaktualizuje ten sam Worker i zachowa przypisaną domenę.
+
+## 6. Automatyczne wdrażanie
+
+Po połączeniu repozytorium każdy commit wysłany do `main` uruchomi:
 
 ```text
-admintoolkit.lepczynski.it
+npx wrangler deploy
 ```
 
-Jeżeli `lepczynski.it` korzysta z serwerów nazw Cloudflare, rekord CNAME zostanie utworzony automatycznie w strefie Cloudflare.
+Wrangler odczyta `wrangler.jsonc` i prześle pliki z `public/`.
 
-Jeżeli autorytatywny DNS nadal działa w OVHcloud, po rozpoczęciu konfiguracji domeny w Pages dodaj w strefie DNS OVHcloud:
+Schemat:
 
 ```text
-Type: CNAME
-Subdomain: admintoolkit
-Target: <nazwa-projektu>.pages.dev.
-TTL: Default
+zmiana kodu
+→ commit
+→ push do main
+→ Cloudflare Workers Build
+→ automatyczne wdrożenie
+→ aktualizacja admintoolkit.lepczynski.it
 ```
 
-Nie twórz rekordów A ani AAAA dla tej samej nazwy. Nie dodawaj tego samego rekordu jednocześnie w OVHcloud i Cloudflare — rekord umieszcza się wyłącznie u aktualnego autorytatywnego dostawcy DNS.
+## 7. Lokalne uruchomienie
 
-## 5. Aktualizowanie witryny
-
-Każdy commit wysłany do gałęzi `main` uruchomi automatyczne wdrożenie Cloudflare Pages.
-
-Najprostsza późniejsza zmiana linku do filmu:
-
-1. Otwórz `assets/js/config.js` na GitHubie.
-2. Kliknij ikonę edycji.
-3. Uzupełnij `projectVideoUrl`.
-4. Zapisz commit bezpośrednio do `main`.
-5. Cloudflare opublikuje zmianę automatycznie.
-
-## 6. Lokalne uruchomienie
-
-Ze względu na Service Worker najlepiej testować projekt przez lokalny serwer HTTP, a nie przez podwójne kliknięcie `index.html`.
-
-Przykład z Pythonem:
+Uruchom polecenie w głównym katalogu repozytorium:
 
 ```bash
-python -m http.server 8080
+python -m http.server 8080 --directory public
+```
+
+Na Windowsie możesz użyć:
+
+```powershell
+py -m http.server 8080 --directory public
 ```
 
 Następnie otwórz:
 
 ```text
-http://localhost:8080
+http://localhost:8080/
 ```
+
+Nie uruchamiaj serwera bez `--directory public`, ponieważ ścieżki `/assets/...` nie będą wtedy prowadziły do właściwych plików.
+
+## 8. Test po wdrożeniu
+
+Sprawdź:
+
+```text
+https://admintoolkit.lepczynski.it/
+https://admintoolkit.lepczynski.it/cidr/
+https://admintoolkit.lepczynski.it/chmod/
+https://admintoolkit.lepczynski.it/cron/
+https://admintoolkit.lepczynski.it/timestamp/
+https://admintoolkit.lepczynski.it/robots.txt
+https://admintoolkit.lepczynski.it/sitemap.xml
+```
+
+Domena jest już przypisana do Workera, więc nie trzeba ponownie tworzyć rekordów DNS, o ile wdrażasz do tego samego Workera `admin-toolkit`.
+
+## 9. Aktualizacja cache offline
+
+Lista plików dostępnych offline znajduje się w:
+
+```text
+public/sw.js
+```
+
+Po dodaniu lub usunięciu narzędzia zaktualizuj tablicę `PRECACHE_URLS`. Przy większej zmianie zwiększ numer w nazwie cache, na przykład z `admin-toolkit-v2` na `admin-toolkit-v3`.
