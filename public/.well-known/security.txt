@@ -1,0 +1,5 @@
+Contact: https://github.com/lepczynski-cloud/admin-toolkit/security/advisories/new
+Expires: 2027-07-27T23:59:59Z
+Canonical: https://admintoolkit.lepczynski.it/.well-known/security.txt
+Policy: https://github.com/lepczynski-cloud/admin-toolkit/blob/main/SECURITY.md
+Preferred-Languages: pl, en

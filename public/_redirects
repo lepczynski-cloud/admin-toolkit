@@ -2,6 +2,11 @@
 /chmod      /chmod/      301
 /cron       /cron/       301
 /timestamp  /timestamp/  301
+
+/favicon.ico                      /assets/icons/icon-192.png 302
+/apple-touch-icon.png             /assets/icons/icon-192.png 302
+/apple-touch-icon-precomposed.png /assets/icons/icon-192.png 302
+
 /blog       https://lepczynski.it 302
 /youtube    https://www.youtube.com/@WojciechLepczynski 302
 /github     https://github.com/lepczynski-cloud/admin-toolkit 302

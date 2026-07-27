@@ -1,4 +1,4 @@
-const CACHE_NAME = "admin-toolkit-v2";
+const CACHE_NAME = "admin-toolkit-v3";
 const PRECACHE_URLS = [
   "/",
   "/404.html",
@@ -33,6 +33,31 @@ self.addEventListener("activate", (event) => {
   self.clients.claim();
 });
 
+async function cacheResponse(request, response) {
+  if (response && response.ok) {
+    const cache = await caches.open(CACHE_NAME);
+    await cache.put(request, response.clone());
+  }
+  return response;
+}
+
+async function networkFirst(request, fallbackUrl = null) {
+  try {
+    return await cacheResponse(request, await fetch(request));
+  } catch {
+    return (await caches.match(request)) || (fallbackUrl ? caches.match(fallbackUrl) : Response.error());
+  }
+}
+
+async function staleWhileRevalidate(request) {
+  const cached = await caches.match(request);
+  const update = fetch(request)
+    .then((response) => cacheResponse(request, response))
+    .catch(() => cached);
+
+  return cached || update;
+}
+
 self.addEventListener("fetch", (event) => {
   const request = event.request;
   const url = new URL(request.url);
@@ -40,33 +65,14 @@ self.addEventListener("fetch", (event) => {
   if (request.method !== "GET" || url.origin !== self.location.origin) return;
 
   if (request.mode === "navigate") {
-    event.respondWith(
-      fetch(request)
-        .then((response) => {
-          if (response.ok) {
-            const copy = response.clone();
-            caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
-          }
-          return response;
-        })
-        .catch(async () => (await caches.match(request)) || caches.match("/404.html"))
-    );
+    event.respondWith(networkFirst(request, "/404.html"));
     return;
   }
 
-  event.respondWith(
-    caches.match(request).then((cached) => {
-      const update = fetch(request)
-        .then((response) => {
-          if (response.ok) {
-            const copy = response.clone();
-            caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
-          }
-          return response;
-        })
-        .catch(() => cached);
+  if (["script", "style", "manifest"].includes(request.destination)) {
+    event.respondWith(networkFirst(request));
+    return;
+  }
 
-      return cached || update;
-    })
-  );
+  event.respondWith(staleWhileRevalidate(request));
 });

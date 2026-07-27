@@ -3,12 +3,23 @@
 
   const config = window.ADMIN_TOOLKIT_CONFIG || {};
 
+  function safeHttpsUrl(value) {
+    if (typeof value !== "string" || !value.trim()) return null;
+
+    try {
+      const url = new URL(value);
+      return url.protocol === "https:" ? url.href : null;
+    } catch {
+      return null;
+    }
+  }
+
   const linkMap = {
-    blog: config.blogUrl,
-    youtube: config.youtubeUrl,
-    github: config.githubUrl,
-    article: config.projectArticleUrl,
-    video: config.projectVideoUrl
+    blog: safeHttpsUrl(config.blogUrl),
+    youtube: safeHttpsUrl(config.youtubeUrl),
+    github: safeHttpsUrl(config.githubUrl),
+    article: safeHttpsUrl(config.projectArticleUrl),
+    video: safeHttpsUrl(config.projectVideoUrl)
   };
 
   document.querySelectorAll("[data-external-link]").forEach((link) => {
@@ -31,7 +42,10 @@
 
   document.querySelectorAll("[data-copy-target]").forEach((button) => {
     button.addEventListener("click", async () => {
-      const target = document.querySelector(button.dataset.copyTarget);
+      const selector = button.dataset.copyTarget;
+      if (!selector || !selector.startsWith("#")) return;
+
+      const target = document.querySelector(selector);
       if (!target) return;
 
       const text = "value" in target ? target.value : target.textContent;
