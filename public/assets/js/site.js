@@ -31,6 +31,7 @@
       return;
     }
 
+    link.hidden = false;
     link.href = url;
     link.target = "_blank";
     link.rel = "noopener noreferrer";
@@ -44,7 +45,6 @@
     button.addEventListener("click", async () => {
       const selector = button.dataset.copyTarget;
       if (!selector || !selector.startsWith("#")) return;
-
       const target = document.querySelector(selector);
       if (!target) return;
 

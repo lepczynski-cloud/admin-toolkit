@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Admin Toolkit — Free CIDR, chmod, cron and timestamp tools</title>
-  <meta name="description" content="Free, privacy-friendly browser tools for CIDR subnet calculations, Linux chmod permissions, cron expressions and Unix timestamps.">
+  <title>Admin Toolkit — Free browser tools for administrators</title>
+  <meta name="description" content="Free, privacy-friendly browser tools for CIDR subnet calculations, Linux chmod permissions, secure password generation, cron expressions and Unix timestamps.">
   <link rel="canonical" href="https://admintoolkit.lepczynski.it/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Admin Toolkit — Practical browser tools for administrators">
-  <meta property="og:description" content="CIDR, chmod, cron and Unix timestamp tools that run locally in your browser.">
+  <meta property="og:description" content="CIDR, chmod, password, cron and Unix timestamp tools that run locally in your browser.">
   <meta property="og:url" content="https://admintoolkit.lepczynski.it/">
   <meta property="og:image" content="https://admintoolkit.lepczynski.it/assets/og/admin-toolkit.png">
   <meta name="twitter:card" content="summary_large_image">
@@ -28,6 +28,7 @@
       <nav class="site-nav" aria-label="Main navigation">
         <a href="/cidr/">CIDR</a>
         <a href="/chmod/">chmod</a>
+        <a href="/password/">Password</a>
         <a href="/cron/">Cron</a>
         <a href="/timestamp/">Timestamp</a>
       </nav>
@@ -35,86 +36,93 @@
   </header>
 
   <main id="main">
-    <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <span class="eyebrow">Free · Private · Browser-based</span>
-          <h1>Small admin tools that get out of your way.</h1>
-          <p class="lead">Calculate IPv4 subnets, build Linux permissions, generate standard cron expressions and convert Unix timestamps. Everything runs locally in your browser.</p>
-          <div class="hero-actions">
-            <a class="button" href="#tools">Open the tools</a>
-            <button class="button secondary" type="button" data-install-app hidden>Install offline app</button>
-            <a class="button ghost" data-external-link="github" href="https://github.com/lepczynski-cloud/admin-toolkit">View source</a>
-          </div>
+    <section class="home-hero">
+      <div class="container home-hero-inner">
+        <span class="eyebrow">Free · Private · Browser-based</span>
+        <h1>Practical admin tools. One clear place.</h1>
+        <p class="lead">Choose a tool and get the answer without creating an account, installing a package or sending your input to a backend.</p>
+        <div class="home-benefits" role="list" aria-label="Project benefits">
+          <span role="listitem">Runs locally</span>
+          <span role="listitem">Works offline</span>
+          <span role="listitem">Open source</span>
         </div>
-        <div class="terminal-card" aria-label="Example toolkit output">
-          <div class="terminal-topbar" aria-hidden="true"><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span></div>
-          <div class="terminal-body">
-            <p class="terminal-line"><strong>$</strong> cidr 192.168.10.20/27</p>
-            <p class="terminal-line">network&nbsp;&nbsp;&nbsp; <span class="success">192.168.10.0/27</span></p>
-            <p class="terminal-line">hosts&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="success">30 usable</span></p>
-            <p class="terminal-line"><strong>$</strong> chmod rwxr-xr-x</p>
-            <p class="terminal-line">mode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="success">755</span></p>
-            <p class="terminal-line"><strong>$</strong> cron "weekdays 08:00"</p>
-            <p class="terminal-line">schedule&nbsp;&nbsp; <span class="success">0 8 * * 1-5</span></p>
-          </div>
+        <div class="hero-actions home-actions">
+          <a class="button" href="#tools">Choose a tool</a>
+          <button class="button secondary" type="button" data-install-app hidden>Install offline app</button>
         </div>
       </div>
     </section>
 
-    <section class="section" id="tools">
+    <section class="home-tools" id="tools">
       <div class="container">
-        <div class="section-heading">
-          <span class="eyebrow">Choose a tool</span>
-          <h2>Useful answers in a few clicks</h2>
-          <p>No account, API key, backend or network scan. Your input stays in the current browser tab.</p>
+        <div class="section-heading home-section-heading">
+          <span class="eyebrow">Available tools</span>
+          <h2>What do you need to do?</h2>
+          <p>Each tool has its own focused page and works entirely in your browser.</p>
         </div>
-        <div class="tool-grid">
-          <a class="tool-card" href="/cidr/">
+
+        <div class="tool-launch-grid">
+          <a class="tool-card launch-card" href="/cidr/">
             <span class="tool-icon">/24</span>
+            <span class="tool-category">Networking</span>
             <h3>CIDR Calculator</h3>
-            <p>Find network, broadcast, host range, mask, wildcard and address counts for an IPv4 prefix.</p>
-            <span class="open-tool">Calculate a subnet →</span>
+            <p>Calculate IPv4 network, broadcast, host range, subnet mask and address counts.</p>
+            <span class="open-tool">Open CIDR Calculator →</span>
           </a>
-          <a class="tool-card" href="/chmod/">
+
+          <a class="tool-card launch-card" href="/chmod/">
             <span class="tool-icon">rwx</span>
+            <span class="tool-category">Linux</span>
             <h3>chmod Calculator</h3>
-            <p>Convert visual read, write and execute permissions into symbolic and numeric Linux modes.</p>
-            <span class="open-tool">Build permissions →</span>
+            <p>Convert visual permissions into numeric and symbolic Linux modes.</p>
+            <span class="open-tool">Open chmod Calculator →</span>
           </a>
-          <a class="tool-card" href="/cron/">
+
+          <a class="tool-card launch-card" href="/password/">
+            <span class="tool-icon">***</span>
+            <span class="tool-category">Security</span>
+            <h3>Password Generator</h3>
+            <p>Create a cryptographically random password with your chosen length and character types.</p>
+            <span class="open-tool">Generate a password →</span>
+          </a>
+
+          <a class="tool-card launch-card" href="/cron/">
             <span class="tool-icon">*/5</span>
+            <span class="tool-category">Automation</span>
             <h3>Cron Generator</h3>
-            <p>Create common standard five-field Unix cron schedules without memorising every field.</p>
+            <p>Build common standard five-field Unix cron schedules without memorising every field.</p>
             <span class="open-tool">Generate a schedule →</span>
           </a>
-          <a class="tool-card" href="/timestamp/">
+
+          <a class="tool-card launch-card" href="/timestamp/">
             <span class="tool-icon">10⁹</span>
+            <span class="tool-category">Date and time</span>
             <h3>Unix Timestamp</h3>
-            <p>Convert dates to Unix seconds or milliseconds and turn timestamps back into readable dates.</p>
-            <span class="open-tool">Convert time →</span>
+            <p>Convert readable dates to Unix seconds or milliseconds and back again.</p>
+            <span class="open-tool">Convert a timestamp →</span>
           </a>
         </div>
       </div>
     </section>
 
-    <section class="section">
+    <section class="section home-about">
       <div class="container">
-        <div class="info-grid">
-          <article class="info-card"><strong>Privacy-friendly</strong><p>There is no backend, login or telemetry in the project. Calculations happen on your device.</p></article>
-          <article class="info-card"><strong>Works offline</strong><p>After the first successful visit, the installable web app can keep the core tools available without a connection.</p></article>
-          <article class="info-card"><strong>Open source</strong><p>The complete HTML, CSS and JavaScript source is available on GitHub under the MIT License.</p></article>
+        <div class="info-grid compact-info-grid">
+          <article class="info-card"><strong>Privacy-friendly</strong><p>No login, cookies or telemetry. Inputs stay in the current browser.</p></article>
+          <article class="info-card"><strong>Offline-ready</strong><p>The installable PWA caches the core tools after the first successful visit.</p></article>
+          <article class="info-card"><strong>Easy to inspect</strong><p>Plain HTML, CSS and JavaScript make the implementation straightforward to review.</p></article>
         </div>
-        <div class="callout">
-          <span class="badge">Built by Wojciech Lepczyński</span>
-          <h2>Hardware, Linux, cloud and practical experiments</h2>
-          <p class="muted">Admin Toolkit grew out of my ESP32 Pocket Admin Toolkit project. Read more practical articles on my blog, watch hardware and cloud experiments on YouTube, or inspect the source code.</p>
-          <div class="external-links">
-            <a class="button" data-external-link="blog" href="https://lepczynski.it">Visit the blog</a>
-            <a class="button secondary" data-external-link="youtube" href="https://www.youtube.com/@WojciechLepczynski">YouTube channel</a>
-            <a class="button ghost" data-external-link="github" href="https://github.com/lepczynski-cloud/admin-toolkit">GitHub repository</a>
-            <a class="button ghost" data-external-link="video" href="#" hidden>Watch the project video</a>
-            <a class="button ghost" data-external-link="article" href="#" hidden>Read the project article</a>
+
+        <div class="callout project-callout">
+          <div>
+            <span class="badge">Open-source project</span>
+            <h2>Built as a practical companion to the Pocket Admin Toolkit</h2>
+            <p class="muted">The website is the browser-based version of a small ESP32 admin toolkit project. The article, video and complete source show how it was designed and built.</p>
+          </div>
+          <div class="external-links project-links">
+            <a class="button" data-external-link="article" href="#" hidden>Read the build article</a>
+            <a class="button secondary" data-external-link="video" href="#" hidden>Watch the project video</a>
+            <a class="button ghost" data-external-link="github" href="https://github.com/lepczynski-cloud/admin-toolkit">View source on GitHub</a>
           </div>
         </div>
       </div>

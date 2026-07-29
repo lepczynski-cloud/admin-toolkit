@@ -1,7 +1,7 @@
 {
   "name": "Admin Toolkit",
   "short_name": "Admin Tools",
-  "description": "Free, privacy-friendly browser tools for CIDR, chmod, cron and Unix timestamps.",
+  "description": "Free, privacy-friendly browser tools for CIDR, chmod, passwords, cron and Unix timestamps.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

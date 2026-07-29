@@ -1,9 +1,10 @@
-const CACHE_NAME = "admin-toolkit-v3";
+const CACHE_NAME = "admin-toolkit-v4";
 const PRECACHE_URLS = [
   "/",
   "/404.html",
   "/cidr/",
   "/chmod/",
+  "/password/",
   "/cron/",
   "/timestamp/",
   "/assets/css/styles.css",
@@ -11,6 +12,7 @@ const PRECACHE_URLS = [
   "/assets/js/site.js",
   "/assets/js/cidr.js",
   "/assets/js/chmod.js",
+  "/assets/js/password.js",
   "/assets/js/cron.js",
   "/assets/js/timestamp.js",
   "/assets/icons/icon.svg",

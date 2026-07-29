@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Random Password Generator — Secure browser-based passwords</title>
+  <meta name="description" content="Generate a cryptographically random password locally in your browser. Choose the length, character types and complexity preset.">
+  <link rel="canonical" href="https://admintoolkit.lepczynski.it/password/">
+  <meta property="og:type" content="website"><meta property="og:title" content="Random Password Generator — Admin Toolkit"><meta property="og:description" content="Generate strong random passwords locally in your browser."><meta property="og:url" content="https://admintoolkit.lepczynski.it/password/"><meta property="og:image" content="https://admintoolkit.lepczynski.it/assets/og/admin-toolkit.png"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#07111f">
+  <link rel="icon" href="/assets/icons/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/assets/icons/icon-192.png"><link rel="manifest" href="/site.webmanifest"><link rel="stylesheet" href="/assets/css/styles.css">
+  <script defer src="/assets/js/config.js"></script><script defer src="/assets/js/site.js"></script><script defer src="/assets/js/password.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><div class="header-inner"><a class="brand" href="/"><span class="brand-mark" aria-hidden="true"></span><span>Admin Toolkit</span></a><nav class="site-nav" aria-label="Main navigation"><a href="/cidr/">CIDR</a><a href="/chmod/">chmod</a><a href="/password/" aria-current="page">Password</a><a href="/cron/">Cron</a><a href="/timestamp/">Timestamp</a></nav></div></header>
+
+  <main id="main">
+    <section class="tool-hero"><div class="container"><div class="breadcrumbs"><a href="/">Admin Toolkit</a><span aria-hidden="true">/</span><span>Password Generator</span></div><span class="eyebrow">Security utility</span><h1>Random Password Generator</h1><p class="lead">Generate a strong password locally in your browser. Choose a preset, adjust the length and select which character types to include.</p></div></section>
+
+    <section class="container tool-layout">
+      <div class="panel">
+        <form id="password-form" novalidate>
+          <div class="form-group">
+            <span class="label">Complexity preset</span>
+            <div class="preset-row" aria-label="Password complexity presets">
+              <button class="button ghost small" type="button" data-password-preset="readable">Readable</button>
+              <button class="button secondary small" type="button" data-password-preset="strong" aria-pressed="true">Strong</button>
+              <button class="button ghost small" type="button" data-password-preset="maximum">Maximum</button>
+            </div>
+            <p class="help-text">Strong is the default: 24 characters with lowercase, uppercase, numbers and symbols.</p>
+          </div>
+
+          <div class="form-group" style="margin-top:1.4rem">
+            <label for="password-length">Password length</label>
+            <div class="range-row">
+              <input id="password-length" type="range" min="8" max="64" value="24" aria-describedby="password-length-help">
+              <input id="password-length-number" class="length-number" type="number" min="8" max="64" value="24" aria-label="Password length in characters">
+            </div>
+            <p class="help-text" id="password-length-help">Use at least 16 characters where the service allows it. The default is 24.</p>
+          </div>
+
+          <fieldset class="password-fieldset" style="margin-top:1.4rem">
+            <legend>Character types</legend>
+            <div class="password-options">
+              <label class="option-toggle"><input id="include-lowercase" type="checkbox" checked><span><strong>Lowercase</strong><small>a–z</small></span></label>
+              <label class="option-toggle"><input id="include-uppercase" type="checkbox" checked><span><strong>Uppercase</strong><small>A–Z</small></span></label>
+              <label class="option-toggle"><input id="include-numbers" type="checkbox" checked><span><strong>Numbers</strong><small>0–9</small></span></label>
+              <label class="option-toggle"><input id="include-symbols" type="checkbox" checked><span><strong>Symbols</strong><small>! @ # $ % …</small></span></label>
+            </div>
+          </fieldset>
+
+          <label class="option-toggle option-toggle-wide" style="margin-top:1rem"><input id="exclude-ambiguous" type="checkbox" checked><span><strong>Exclude ambiguous characters</strong><small>Removes characters such as O, 0, I, l and 1 to make manual reading easier.</small></span></label>
+
+          <div class="alert error" id="password-error" role="alert" hidden></div>
+          <div class="action-row" style="margin-top:1.2rem"><button class="button" type="submit">Generate password</button></div>
+          <div class="privacy-note"><span aria-hidden="true">✓</span><div><strong>Generated locally.</strong> The password is created with <code>crypto.getRandomValues()</code> and is not sent to a server.</div></div>
+        </form>
+      </div>
+
+      <aside class="panel sticky" aria-live="polite">
+        <div class="result-highlight password-result">
+          <div class="result-label">Generated password</div>
+          <p class="result-value password-display" id="password-output"></p>
+        </div>
+        <div class="action-row" style="margin-top:1rem"><button class="button secondary" type="button" data-copy-target="#password-output">Copy password</button><button class="button ghost" type="button" id="regenerate-password">Generate another</button></div>
+
+        <div class="strength-block">
+          <div class="strength-heading"><span>Estimated strength</span><strong id="password-strength-label">Very strong</strong></div>
+          <progress id="password-strength-meter" max="100" value="100">100%</progress>
+          <p class="help-text" id="password-strength-detail"></p>
+        </div>
+
+        <div class="result-grid password-meta-grid">
+          <div class="result-card"><div class="result-label">Length</div><p class="result-value" id="password-result-length">24</p></div>
+          <div class="result-card"><div class="result-label">Character pool</div><p class="result-value" id="password-pool-size">0</p></div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="content-section"><div class="container prose">
+      <h2>Practical password advice</h2>
+      <p>Use a different password for every service and store passwords in a reputable password manager. A long unique password is usually more useful than a shorter password that is difficult to remember but reused in several places.</p>
+      <p>Enable multi-factor authentication or a passkey whenever the service supports it. Do not send passwords through email, chat or screenshots, and replace a password immediately if you suspect it has been exposed.</p>
+      <div class="callout"><h3>Why 24 characters by default?</h3><p>Twenty-four randomly generated characters provide a large search space while still fitting typical password fields. Some services impose shorter limits or reject selected symbols, so adjust the settings when necessary instead of reusing an older password.</p></div>
+    </div></section>
+  </main>
+
+  <footer class="site-footer"><div class="footer-inner"><p class="footer-copy">© <span data-current-year></span> Wojciech Lepczyński. No cookies, no tracking, no backend.</p><div class="footer-links"><a href="/">All tools</a><a data-external-link="blog" href="https://lepczynski.it">Blog</a><a data-external-link="youtube" href="https://www.youtube.com/@WojciechLepczynski">YouTube</a><a data-external-link="github" href="https://github.com/lepczynski-cloud/admin-toolkit">GitHub</a></div></div></footer>
+</body>
+</html>
