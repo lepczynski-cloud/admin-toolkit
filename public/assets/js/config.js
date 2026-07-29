@@ -6,6 +6,6 @@ window.ADMIN_TOOLKIT_CONFIG = Object.freeze({
 
   // Add these links after publishing the article and video.
   // Buttons that use an empty URL remain hidden automatically.
-  projectArticleUrl: "",
-  projectVideoUrl: ""
+  projectArticleUrl: "https://lepczynski.it/en/other/pocket-admin-toolkit-a-practical-admin-tool-built-on-esp32/",
+  projectVideoUrl: "https://www.youtube.com/watch?v=lrTHDVkG1Hk"
 });

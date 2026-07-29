@@ -6,9 +6,6 @@ Free, privacy-friendly browser tools for everyday Linux, networking and system a
 
 ![Admin Toolkit preview](public/assets/og/admin-toolkit.png)
 
-- [Polish setup guide](SETUP-PL.md)
-- [Cloudflare Workers Builds configuration](CLOUDFLARE-GITHUB.md)
-
 ## Included tools
 
 - **CIDR Calculator** — network, broadcast, host range, subnet mask, wildcard mask and address counts.
@@ -60,8 +57,6 @@ admin-toolkit/
 │   ├── site.webmanifest
 │   └── sw.js
 ├── wrangler.jsonc                 # Cloudflare Worker configuration
-├── CLOUDFLARE-GITHUB.md
-├── SETUP-PL.md
 ├── LICENSE
 ├── .gitignore
 └── README.md
@@ -85,8 +80,8 @@ public/assets/js/config.js
 The blog, YouTube channel and GitHub repository are already configured. After publishing the related article and video, add their complete URLs:
 
 ```js
-projectArticleUrl: "https://lepczynski.it/...",
-projectVideoUrl: "https://www.youtube.com/watch?v=..."
+projectArticleUrl: "https://lepczynski.it/en/other/pocket-admin-toolkit-a-practical-admin-tool-built-on-esp32/",
+projectVideoUrl: "https://www.youtube.com/watch?v=lrTHDVkG1Hk"
 ```
 
 Buttons linked to empty values remain hidden.
