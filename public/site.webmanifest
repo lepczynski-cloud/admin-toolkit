@@ -1,14 +1,32 @@
 {
   "name": "Admin Toolkit",
   "short_name": "Admin Tools",
-  "description": "Free, privacy-friendly browser tools for CIDR, chmod, passwords, cron and Unix timestamps.",
+  "description": "Local browser tools for networking, Linux, security, automation, time zones, encoding and configuration conversion.",
+  "id": "/",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#07111f",
-  "theme_color": "#07111f",
+  "background_color": "#090c12",
+  "theme_color": "#090c12",
+  "categories": ["developer", "utilities", "productivity"],
   "icons": [
-    { "src": "/assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "/assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+    {
+      "src": "/assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ]
 }

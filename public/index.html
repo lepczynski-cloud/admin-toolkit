@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Admin Toolkit — Free browser tools for administrators</title>
-  <meta name="description" content="Free, privacy-friendly browser tools for CIDR subnet calculations, Linux chmod permissions, secure password generation, cron expressions and Unix timestamps.">
+  <title>Admin Toolkit — Local browser tools for administrators</title>
+  <meta name="description" content="Free local-first tools for CIDR, chmod, passwords, cron, timestamps, Base64, time zones and JSON or YAML conversion.">
   <link rel="canonical" href="https://admintoolkit.lepczynski.it/">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Admin Toolkit — Practical browser tools for administrators">
-  <meta property="og:description" content="CIDR, chmod, password, cron and Unix timestamp tools that run locally in your browser.">
+  <meta property="og:title" content="Admin Toolkit — Local browser tools for administrators">
+  <meta property="og:description" content="Free local-first tools for CIDR, chmod, passwords, cron, timestamps, Base64, time zones and JSON or YAML conversion.">
   <meta property="og:url" content="https://admintoolkit.lepczynski.it/">
   <meta property="og:image" content="https://admintoolkit.lepczynski.it/assets/og/admin-toolkit.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="theme-color" content="#07111f">
+  <meta name="theme-color" content="#090c12">
   <link rel="icon" href="/assets/icons/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/assets/icons/icon-192.png">
   <link rel="manifest" href="/site.webmanifest">
@@ -24,118 +24,181 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
     <div class="header-inner">
-      <a class="brand" href="/" aria-label="Admin Toolkit home"><span class="brand-mark" aria-hidden="true"></span><span>Admin Toolkit</span></a>
-      <nav class="site-nav" aria-label="Main navigation">
-        <a href="/cidr/">CIDR</a>
-        <a href="/chmod/">chmod</a>
-        <a href="/password/">Password</a>
-        <a href="/cron/">Cron</a>
-        <a href="/timestamp/">Timestamp</a>
+      <a class="brand" href="/" aria-label="Admin Toolkit home">
+        <img class="brand-logo" src="/assets/icons/logo-toolbox.svg" alt="" width="56" height="56">
+        <span class="brand-copy">
+          <span class="brand-name">Admin Toolkit</span>
+          <span class="brand-tagline">Local tools for administrators</span>
+        </span>
+      </a>
+      <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false" data-nav-toggle>
+        <span class="nav-toggle-lines" aria-hidden="true"></span>
+      </button>
+      <nav class="site-nav" aria-label="Main navigation" data-site-nav>
+        <a href="/#tools">Tools</a>
+        <a href="/#offline-device">Offline device</a>
+        <a data-external-link="blog" href="https://lepczynski.it">Blog</a>
+        <a data-external-link="youtube" href="https://www.youtube.com/@WojciechLepczynski">YouTube</a>
+        <a class="nav-cta" data-external-link="github" href="https://github.com/lepczynski-cloud/admin-toolkit">GitHub ↗</a>
       </nav>
     </div>
   </header>
-
   <main id="main">
-    <section class="home-hero">
-      <div class="container home-hero-inner">
-        <span class="eyebrow">Free · Private · Browser-based</span>
-        <h1>Practical admin tools. One clear place.</h1>
-        <p class="lead">Choose a tool and get the answer without creating an account, installing a package or sending your input to a backend.</p>
-        <div class="home-benefits" role="list" aria-label="Project benefits">
-          <span role="listitem">Runs locally</span>
-          <span role="listitem">Works offline</span>
-          <span role="listitem">Open source</span>
+    <section class="tools-first" id="tools">
+      <div class="container">
+        <div class="section-kicker">Admin tools in one place</div>
+        <div class="home-heading">
+          <h1>Choose the right tool for the job.</h1>
+          <p>Focused utilities for networking, Linux, automation and configuration work. Every calculation runs in this browser tab.</p>
         </div>
-        <div class="hero-actions home-actions">
-          <a class="button" href="#tools">Choose a tool</a>
-          <button class="button secondary" type="button" data-install-app hidden>Install offline app</button>
+        <div class="tool-grid">
+          <a class="tool-card" data-accent="amber" href="/cidr/">
+            <div class="tool-card-visual"><svg viewBox="0 0 240 120" aria-hidden="true"><rect x="70" y="16" width="100" height="30" rx="8" fill="none" stroke="currentColor" stroke-width="3"/><text x="120" y="36" text-anchor="middle" fill="currentColor" font-family="monospace" font-size="16" font-weight="700">192.168.1.0/24</text><path d="M120 47v22M46 69h148M46 69v17M120 69v17M194 69v17" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><rect x="32" y="86" width="28" height="20" rx="5" fill="none" stroke="currentColor" stroke-width="3"/><rect x="106" y="86" width="28" height="20" rx="5" fill="none" stroke="currentColor" stroke-width="3"/><rect x="180" y="86" width="28" height="20" rx="5" fill="none" stroke="currentColor" stroke-width="3"/></svg></div>
+            <span class="tool-card-category">Networking</span>
+            <h2>CIDR Calculator</h2>
+            <p>Calculate the network, broadcast, host range and masks for an IPv4 prefix.</p>
+            <span class="tool-card-action"><span>Open CIDR Calculator</span><span class="action-arrow" aria-hidden="true">→</span></span>
+          </a>
+          <a class="tool-card" data-accent="violet" href="/chmod/">
+            <div class="tool-card-visual"><svg viewBox="0 0 240 120" aria-hidden="true"><rect x="30" y="22" width="180" height="76" rx="12" fill="none" stroke="currentColor" stroke-width="3"/><path d="M30 57h180M90 22v76M150 22v76" stroke="currentColor" stroke-width="3"/><text x="60" y="47" text-anchor="middle" fill="currentColor" font-family="monospace" font-size="20" font-weight="800">rwx</text><text x="120" y="47" text-anchor="middle" fill="currentColor" font-family="monospace" font-size="20" font-weight="800">r-x</text><text x="180" y="47" text-anchor="middle" fill="currentColor" font-family="monospace" font-size="20" font-weight="800">r--</text><text x="60" y="83" text-anchor="middle" fill="currentColor" font-family="monospace" font-size="22" font-weight="800">7</text><text x="120" y="83" text-anchor="middle" fill="currentColor" font-family="monospace" font-size="22" font-weight="800">5</text><text x="180" y="83" text-anchor="middle" fill="currentColor" font-family="monospace" font-size="22" font-weight="800">4</text></svg></div>
+            <span class="tool-card-category">Linux</span>
+            <h2>chmod Calculator</h2>
+            <p>Turn visual read, write and execute permissions into numeric and symbolic modes.</p>
+            <span class="tool-card-action"><span>Open chmod Calculator</span><span class="action-arrow" aria-hidden="true">→</span></span>
+          </a>
+          <a class="tool-card" data-accent="teal" href="/password/">
+            <div class="tool-card-visual"><svg viewBox="0 0 240 120" aria-hidden="true"><rect x="28" y="28" width="184" height="42" rx="11" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="54" cy="49" r="5" fill="currentColor"/><circle cx="76" cy="49" r="5" fill="currentColor"/><circle cx="98" cy="49" r="5" fill="currentColor"/><circle cx="120" cy="49" r="5" fill="currentColor"/><circle cx="142" cy="49" r="5" fill="currentColor"/><circle cx="164" cy="49" r="5" fill="currentColor"/><path d="M190 41v-6a10 10 0 0 0-20 0v6" fill="none" stroke="currentColor" stroke-width="3"/><rect x="40" y="84" width="160" height="8" rx="4" fill="currentColor" opacity=".22"/><rect x="40" y="84" width="118" height="8" rx="4" fill="currentColor"/></svg></div>
+            <span class="tool-card-category">Security</span>
+            <h2>Password Generator</h2>
+            <p>Create a cryptographically random password with your chosen length and character sets.</p>
+            <span class="tool-card-action"><span>Generate a Password</span><span class="action-arrow" aria-hidden="true">→</span></span>
+          </a>
+          <a class="tool-card" data-accent="rose" href="/cron/">
+            <div class="tool-card-visual"><svg viewBox="0 0 240 120" aria-hidden="true"><rect x="24" y="28" width="192" height="64" rx="12" fill="none" stroke="currentColor" stroke-width="3"/><path d="M24 58h192" stroke="currentColor" stroke-width="3"/><text x="120" y="50" text-anchor="middle" fill="currentColor" font-family="monospace" font-size="21" font-weight="800">*/5 * * * *</text><text x="120" y="80" text-anchor="middle" fill="currentColor" font-family="system-ui" font-size="13">every five minutes</text></svg></div>
+            <span class="tool-card-category">Automation</span>
+            <h2>Cron Generator & Parser</h2>
+            <p>Build or decode a five-field Unix cron expression and see its next five executions.</p>
+            <span class="tool-card-action"><span>Open Cron Tool</span><span class="action-arrow" aria-hidden="true">→</span></span>
+          </a>
+          <a class="tool-card" data-accent="blue" href="/timestamp/">
+            <div class="tool-card-visual"><svg viewBox="0 0 240 120" aria-hidden="true"><rect x="36" y="20" width="168" height="80" rx="14" fill="none" stroke="currentColor" stroke-width="3"/><text x="120" y="59" text-anchor="middle" fill="currentColor" font-family="monospace" font-size="24" font-weight="800">1785580200</text><path d="M69 77h102" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle cx="120" cy="77" r="5" fill="currentColor"/></svg></div>
+            <span class="tool-card-category">Date & time</span>
+            <h2>Unix Timestamp</h2>
+            <p>Convert dates to Unix seconds or milliseconds and turn timestamps back into readable time.</p>
+            <span class="tool-card-action"><span>Convert a Timestamp</span><span class="action-arrow" aria-hidden="true">→</span></span>
+          </a>
+          <a class="tool-card" data-accent="teal" href="/base64/">
+            <div class="tool-card-visual"><svg viewBox="0 0 240 120" aria-hidden="true"><rect x="20" y="24" width="78" height="72" rx="12" fill="none" stroke="currentColor" stroke-width="3"/><rect x="142" y="24" width="78" height="72" rx="12" fill="none" stroke="currentColor" stroke-width="3"/><text x="59" y="65" text-anchor="middle" fill="currentColor" font-family="monospace" font-size="20" font-weight="800">Admin</text><text x="181" y="58" text-anchor="middle" fill="currentColor" font-family="monospace" font-size="15" font-weight="800">QWRtaW4=</text><path d="M107 50h24l-7-7M131 70h-24l7 7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <span class="tool-card-category">Encoding</span>
+            <h2>Base64 Encoder / Decoder</h2>
+            <p>Encode UTF-8 text to Base64 or decode Base64 locally without uploading the content.</p>
+            <span class="tool-card-action"><span>Open Base64 Tool</span><span class="action-arrow" aria-hidden="true">→</span></span>
+          </a>
+          <a class="tool-card" data-accent="amber" href="/time-zones/">
+            <div class="tool-card-visual"><svg viewBox="0 0 240 120" aria-hidden="true"><circle cx="60" cy="60" r="34" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="120" cy="60" r="34" fill="none" stroke="currentColor" stroke-width="3" opacity=".7"/><circle cx="180" cy="60" r="34" fill="none" stroke="currentColor" stroke-width="3" opacity=".45"/><path d="M60 60V40M60 60l14 8M120 60V36M120 60l-12 13M180 60V43M180 60l15-5" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><text x="60" y="108" text-anchor="middle" fill="currentColor" font-size="12" font-weight="800">CEST</text><text x="120" y="108" text-anchor="middle" fill="currentColor" font-size="12" font-weight="800">HKT</text><text x="180" y="108" text-anchor="middle" fill="currentColor" font-size="12" font-weight="800">Z</text></svg></div>
+            <span class="tool-card-category">Time zones</span>
+            <h2>CEST, HKT & Zulu</h2>
+            <p>Keep three clocks in sync, edit any one of them and add another IANA time zone.</p>
+            <span class="tool-card-action"><span>Open Time Zone Tool</span><span class="action-arrow" aria-hidden="true">→</span></span>
+          </a>
+          <a class="tool-card" data-accent="violet" href="/json-yaml/">
+            <div class="tool-card-visual"><svg viewBox="0 0 240 120" aria-hidden="true"><rect x="24" y="20" width="78" height="80" rx="12" fill="none" stroke="currentColor" stroke-width="3"/><rect x="138" y="20" width="78" height="80" rx="12" fill="none" stroke="currentColor" stroke-width="3"/><text x="63" y="67" text-anchor="middle" fill="currentColor" font-family="monospace" font-size="30" font-weight="800">{ }</text><path d="M112 48h16l-5-5M128 72h-16l5 5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M156 44h42M156 59h31M156 74h37" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg></div>
+            <span class="tool-card-category">Configuration</span>
+            <h2>JSON ⇄ YAML Converter</h2>
+            <p>Convert and format JSON-compatible YAML without sending configuration files to a server.</p>
+            <span class="tool-card-action"><span>Open JSON ⇄ YAML</span><span class="action-arrow" aria-hidden="true">→</span></span>
+          </a>
         </div>
       </div>
     </section>
 
-    <section class="home-tools" id="tools">
-      <div class="container">
-        <div class="section-heading home-section-heading">
-          <span class="eyebrow">Available tools</span>
-          <h2>What do you need to do?</h2>
-          <p>Each tool has its own focused page and works entirely in your browser.</p>
+    <section class="section section-dark" id="why">
+      <div class="container why-grid">
+        <div>
+          <div class="section-kicker">Built for administrators</div>
+          <h2>Practical answers without sending your data anywhere.</h2>
+          <p class="section-lead">Admin Toolkit is a static collection of small utilities for everyday Linux, network and DevOps tasks. There is no account system, application backend or telemetry.</p>
+          <div class="feature-list" aria-label="Project characteristics">
+            <div class="feature-item"><span class="feature-symbol" aria-hidden="true">⌁</span><div><strong>Runs locally</strong><p>Inputs are processed by JavaScript on your device instead of an API.</p></div></div>
+            <div class="feature-item"><span class="feature-symbol" aria-hidden="true">◌</span><div><strong>Works offline</strong><p>The installable PWA caches the site after a successful visit.</p></div></div>
+            <div class="feature-item"><span class="feature-symbol" aria-hidden="true">&lt;/&gt;</span><div><strong>Open source</strong><p>The complete implementation is available on GitHub under the MIT License.</p></div></div>
+          </div>
+          <div class="button-row" style="margin-top: 2rem">
+            <button class="button" type="button" data-install-app hidden>Install the Offline Web App</button>
+            <a class="button secondary" data-external-link="github" href="https://github.com/lepczynski-cloud/admin-toolkit">Inspect the Online Source</a>
+          </div>
         </div>
-
-        <div class="tool-launch-grid">
-          <a class="tool-card launch-card" href="/cidr/">
-            <span class="tool-icon">/24</span>
-            <span class="tool-category">Networking</span>
-            <h3>CIDR Calculator</h3>
-            <p>Calculate IPv4 network, broadcast, host range, subnet mask and address counts.</p>
-            <span class="open-tool">Open CIDR Calculator →</span>
-          </a>
-
-          <a class="tool-card launch-card" href="/chmod/">
-            <span class="tool-icon">rwx</span>
-            <span class="tool-category">Linux</span>
-            <h3>chmod Calculator</h3>
-            <p>Convert visual permissions into numeric and symbolic Linux modes.</p>
-            <span class="open-tool">Open chmod Calculator →</span>
-          </a>
-
-          <a class="tool-card launch-card" href="/password/">
-            <span class="tool-icon">***</span>
-            <span class="tool-category">Security</span>
-            <h3>Password Generator</h3>
-            <p>Create a cryptographically random password with your chosen length and character types.</p>
-            <span class="open-tool">Generate a password →</span>
-          </a>
-
-          <a class="tool-card launch-card" href="/cron/">
-            <span class="tool-icon">*/5</span>
-            <span class="tool-category">Automation</span>
-            <h3>Cron Generator</h3>
-            <p>Build common standard five-field Unix cron schedules without memorising every field.</p>
-            <span class="open-tool">Generate a schedule →</span>
-          </a>
-
-          <a class="tool-card launch-card" href="/timestamp/">
-            <span class="tool-icon">10⁹</span>
-            <span class="tool-category">Date and time</span>
-            <h3>Unix Timestamp</h3>
-            <p>Convert readable dates to Unix seconds or milliseconds and back again.</p>
-            <span class="open-tool">Convert a timestamp →</span>
-          </a>
+        <div class="code-preview" aria-label="Example local toolkit output">
+          <div class="code-preview-top" aria-hidden="true"><span class="code-dot"></span><span class="code-dot"></span><span class="code-dot"></span></div>
+          <div class="code-preview-body">
+            <p class="code-line"><span class="code-number">1</span><span><span class="code-comment"># Nothing leaves the browser</span></span></p>
+            <p class="code-line"><span class="code-number">2</span><span><span class="code-key">network</span>: <span class="code-value">192.168.10.0/27</span></span></p>
+            <p class="code-line"><span class="code-number">3</span><span><span class="code-key">usable_hosts</span>: <span class="code-value">30</span></span></p>
+            <p class="code-line"><span class="code-number">4</span><span><span class="code-key">chmod</span>: <span class="code-value">755</span></span></p>
+            <p class="code-line"><span class="code-number">5</span><span><span class="code-key">cron</span>: <span class="code-value">0 8 * * 1-5</span></span></p>
+            <p class="code-line"><span class="code-number">6</span><span><span class="code-key">timezone</span>: <span class="code-value">CEST → HKT → Z</span></span></p>
+            <p class="code-line"><span class="code-number">7</span><span><span class="code-comment"># Ready even when the network is not</span></span></p>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section home-about">
-      <div class="container">
-        <div class="info-grid compact-info-grid">
-          <article class="info-card"><strong>Privacy-friendly</strong><p>No login, cookies or telemetry. Inputs stay in the current browser.</p></article>
-          <article class="info-card"><strong>Offline-ready</strong><p>The installable PWA caches the core tools after the first successful visit.</p></article>
-          <article class="info-card"><strong>Easy to inspect</strong><p>Plain HTML, CSS and JavaScript make the implementation straightforward to review.</p></article>
+    <section class="section offline-section" id="offline-device">
+      <div class="container offline-grid">
+        <div class="offline-copy">
+          <div class="section-kicker">Take it offline</div>
+          <h2>Pocket Admin Toolkit on an ESP32 touchscreen.</h2>
+          <p class="section-lead">The hardware version runs directly on a 2.8-inch CrowPanel. It starts immediately and needs no Wi-Fi, cloud account or external server.</p>
+          <ul class="device-points">
+            <li>Small reference tools in a pocket-sized device</li>
+            <li>Open-source PlatformIO firmware</li>
+            <li>No credentials, telemetry or network dependency</li>
+          </ul>
+          <div class="button-row">
+            <a class="button" data-external-link="offlineGithub" href="https://github.com/lepczynski-cloud/crowpanel-Admin-Pocket-Toolkit">View ESP32 Source Code</a>
+            <a class="button secondary" data-external-link="article" href="https://lepczynski.it">Read the Build Article</a>
+            <a class="button ghost" data-external-link="video" href="https://www.youtube.com/watch?v=lrTHDVkG1Hk">Open on YouTube</a>
+          </div>
         </div>
-
-        <div class="callout project-callout">
-          <div>
-            <span class="badge">Open-source project</span>
-            <h2>Built as a practical companion to the Pocket Admin Toolkit</h2>
-            <p class="muted">The website is the browser-based version of a small ESP32 admin toolkit project. The article, video and complete source show how it was designed and built.</p>
+        <div class="video-card">
+          <div class="video-frame">
+            <iframe data-video-embed title="Pocket Admin Toolkit project video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           </div>
-          <div class="external-links project-links">
-            <a class="button" data-external-link="article" href="#" hidden>Read the build article</a>
-            <a class="button secondary" data-external-link="video" href="#" hidden>Watch the project video</a>
-            <a class="button ghost" data-external-link="github" href="https://github.com/lepczynski-cloud/admin-toolkit">View source on GitHub</a>
-          </div>
+          <div class="video-meta"><strong>I Built a Pocket Admin Toolkit with an ESP32 Touchscreen</strong><span>Embedded with YouTube privacy-enhanced mode</span></div>
         </div>
       </div>
     </section>
   </main>
-
   <footer class="site-footer">
     <div class="footer-inner">
-      <p class="footer-copy">© <span data-current-year></span> Wojciech Lepczyński. No cookies, no tracking, no backend.</p>
-      <div class="footer-links">
-        <a data-external-link="blog" href="https://lepczynski.it">Blog</a>
-        <a data-external-link="youtube" href="https://www.youtube.com/@WojciechLepczynski">YouTube</a>
-        <a data-external-link="github" href="https://github.com/lepczynski-cloud/admin-toolkit">GitHub</a>
+      <div class="footer-grid">
+        <div>
+          <a class="footer-brand" href="/">
+            <img src="/assets/icons/logo-toolbox.svg" alt="" width="44" height="44">
+            <strong>Admin Toolkit</strong>
+          </a>
+          <p class="footer-summary">Practical browser tools for Linux, networking, automation and everyday system administration. No account, no backend and no telemetry.</p>
+        </div>
+        <div class="footer-column">
+          <h2>Tools</h2>
+          <a href="/cidr/">CIDR Calculator</a>
+          <a href="/chmod/">chmod Calculator</a>
+          <a href="/cron/">Cron Parser</a>
+          <a href="/time-zones/">Time Zone Converter</a>
+          <a href="/json-yaml/">JSON ⇄ YAML</a>
+        </div>
+        <div class="footer-column">
+          <h2>Projects</h2>
+          <a data-external-link="github" href="https://github.com/lepczynski-cloud/admin-toolkit">Online source code</a>
+          <a data-external-link="offlineGithub" href="https://github.com/lepczynski-cloud/crowpanel-Admin-Pocket-Toolkit">ESP32 source code</a>
+          <a data-external-link="article" href="https://lepczynski.it">Build article</a>
+          <a data-external-link="blog" href="https://lepczynski.it">Blog</a>
+          <a data-external-link="youtube" href="https://www.youtube.com/@WojciechLepczynski">YouTube channel</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© <span data-current-year></span> Wojciech Lepczyński. MIT licensed.</p>
+        <p>Calculations stay in your browser.</p>
       </div>
     </div>
   </footer>

@@ -3,44 +3,138 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CIDR Calculator — IPv4 subnet, range, mask and hosts</title>
-  <meta name="description" content="Calculate IPv4 network address, broadcast, usable host range, subnet mask, wildcard mask and address count from CIDR notation.">
+  <title>CIDR Calculator — Admin Toolkit</title>
+  <meta name="description" content="Calculate IPv4 network, broadcast, host range, subnet mask, wildcard mask and address counts locally in your browser.">
   <link rel="canonical" href="https://admintoolkit.lepczynski.it/cidr/">
-  <meta property="og:type" content="website"><meta property="og:title" content="CIDR Calculator — Admin Toolkit"><meta property="og:description" content="Calculate IPv4 subnet details locally in your browser."><meta property="og:url" content="https://admintoolkit.lepczynski.it/cidr/"><meta property="og:image" content="https://admintoolkit.lepczynski.it/assets/og/admin-toolkit.png">
-  <meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#07111f">
-  <link rel="icon" href="/assets/icons/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/assets/icons/icon-192.png"><link rel="manifest" href="/site.webmanifest"><link rel="stylesheet" href="/assets/css/styles.css">
-  <script defer src="/assets/js/config.js"></script><script defer src="/assets/js/site.js"></script><script defer src="/assets/js/cidr.js"></script>
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="CIDR Calculator — Admin Toolkit">
+  <meta property="og:description" content="Calculate IPv4 network, broadcast, host range, subnet mask, wildcard mask and address counts locally in your browser.">
+  <meta property="og:url" content="https://admintoolkit.lepczynski.it/cidr/">
+  <meta property="og:image" content="https://admintoolkit.lepczynski.it/assets/og/admin-toolkit.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#090c12">
+  <link rel="icon" href="/assets/icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/icons/icon-192.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <script defer src="/assets/js/config.js"></script>
+  <script defer src="/assets/js/site.js"></script>
+  <script defer src="/assets/js/cidr.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header"><div class="header-inner"><a class="brand" href="/"><span class="brand-mark" aria-hidden="true"></span><span>Admin Toolkit</span></a><nav class="site-nav" aria-label="Main navigation"><a href="/cidr/" aria-current="page">CIDR</a><a href="/chmod/">chmod</a><a href="/password/">Password</a><a href="/cron/">Cron</a><a href="/timestamp/">Timestamp</a></nav></div></header>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="/" aria-label="Admin Toolkit home">
+        <img class="brand-logo" src="/assets/icons/logo-toolbox.svg" alt="" width="56" height="56">
+        <span class="brand-copy">
+          <span class="brand-name">Admin Toolkit</span>
+          <span class="brand-tagline">Local tools for administrators</span>
+        </span>
+      </a>
+      <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false" data-nav-toggle>
+        <span class="nav-toggle-lines" aria-hidden="true"></span>
+      </button>
+      <nav class="site-nav" aria-label="Main navigation" data-site-nav>
+        <a href="/#tools">Tools</a>
+        <a href="/#offline-device">Offline device</a>
+        <a data-external-link="blog" href="https://lepczynski.it">Blog</a>
+        <a data-external-link="youtube" href="https://www.youtube.com/@WojciechLepczynski">YouTube</a>
+        <a class="nav-cta" data-external-link="github" href="https://github.com/lepczynski-cloud/admin-toolkit">GitHub ↗</a>
+      </nav>
+    </div>
+  </header>
   <main id="main">
-    <section class="tool-hero"><div class="container"><div class="breadcrumbs"><a href="/">Admin Toolkit</a><span aria-hidden="true">/</span><span>CIDR Calculator</span></div><span class="eyebrow">IPv4 networking</span><h1>CIDR Calculator</h1><p class="lead">Enter an IPv4 address with a prefix to calculate the subnet, broadcast address, host range, masks and address counts.</p></div></section>
-    <section class="container tool-layout">
-      <div class="panel">
-        <form id="cidr-form" novalidate>
-          <div class="form-group"><label for="cidr-input">IPv4 address and prefix</label><input id="cidr-input" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" value="192.168.1.10/24" aria-describedby="cidr-help"><p class="help-text" id="cidr-help">Example: <code>192.168.1.10/24</code></p></div>
-          <div class="action-row" style="margin-top:1rem"><button class="button" type="submit">Calculate subnet</button><button class="button secondary" type="button" id="copy-cidr-results">Copy results</button></div>
-          <div class="preset-row" style="margin-top:1rem"><button class="button ghost small" type="button" data-cidr-example="10.0.0.10/8">/8 example</button><button class="button ghost small" type="button" data-cidr-example="172.16.10.20/16">/16 example</button><button class="button ghost small" type="button" data-cidr-example="192.168.1.20/24">/24 example</button><button class="button ghost small" type="button" data-cidr-example="192.168.1.33/27">/27 example</button><button class="button ghost small" type="button" data-cidr-example="192.0.2.4/31">/31 example</button></div>
-          <div class="alert error" id="cidr-error" role="alert" hidden></div>
-          <div class="privacy-note"><span aria-hidden="true">✓</span><div><strong>Local calculation.</strong> The address is processed only by JavaScript in your browser and is not sent to a server.</div></div>
-        </form>
+    <section class="tool-hero">
+      <div class="container">
+        <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Admin Toolkit</a><span aria-hidden="true">/</span><span>CIDR Calculator</span></nav>
+        <div class="tool-hero-grid">
+          <div>
+            <span class="tool-kicker">Networking</span>
+            <h1>CIDR Calculator</h1>
+            <p class="tool-intro">Enter an IPv4 address with a prefix to calculate its network boundaries, masks and usable host range.</p>
+          </div>
+          <div class="tool-status">Runs locally in your browser</div>
+        </div>
       </div>
-      <aside class="panel sticky" id="cidr-results" aria-live="polite">
-        <div class="result-highlight"><div class="result-label">Calculated input</div><p class="result-value" id="result-input"></p></div>
-        <div class="result-grid" style="margin-top:1rem">
-          <div class="result-card"><div class="result-label">Network</div><p class="result-value" id="result-network"></p></div><div class="result-card"><div class="result-label">Broadcast</div><p class="result-value" id="result-broadcast"></p></div>
-          <div class="result-card"><div class="result-label">First host</div><p class="result-value" id="result-first-host"></p></div><div class="result-card"><div class="result-label">Last host</div><p class="result-value" id="result-last-host"></p></div>
-          <div class="result-card"><div class="result-label">Subnet mask</div><p class="result-value" id="result-mask"></p></div><div class="result-card"><div class="result-label">Wildcard mask</div><p class="result-value" id="result-wildcard"></p></div>
-          <div class="result-card"><div class="result-label">Total addresses</div><p class="result-value" id="result-total"></p></div><div class="result-card"><div class="result-label">Usable hosts</div><p class="result-value" id="result-usable"></p></div>
-        </div><div class="alert note" id="cidr-summary"></div>
+    </section>
+    <section class="container tool-layout">
+      <form class="panel" id="cidr-form">
+        <div class="panel-heading"><div><h2>IPv4 network</h2><p>Use address/prefix notation.</p></div></div>
+        <div class="form-group">
+          <label for="cidr-input">IPv4 address and prefix</label>
+          <input id="cidr-input" type="text" value="192.168.10.20/27" inputmode="text" autocomplete="off" spellcheck="false">
+          <p class="help-text">Example: 10.20.30.40/22</p>
+        </div>
+        <div class="preset-row" style="margin-top: 1rem">
+          <button class="button ghost small" type="button" data-cidr-example="192.168.1.10/24">Private /24</button>
+          <button class="button ghost small" type="button" data-cidr-example="10.20.30.40/22">Private /22</button>
+          <button class="button ghost small" type="button" data-cidr-example="172.16.0.1/31">Point-to-point /31</button>
+        </div>
+        <div class="action-row" style="margin-top: 1.2rem"><button class="button" type="submit">Calculate Network</button></div>
+        <div class="alert error" id="cidr-error" role="alert" hidden></div>
+        <div class="privacy-note"><span aria-hidden="true">⌁</span><span><strong>Local calculation.</strong> The address is not sent to a backend or scanned.</span></div>
+      </form>
+      <aside class="panel sticky" id="cidr-results">
+        <div class="panel-heading"><div><h2>Network details</h2><p id="cidr-summary"></p></div><button class="button ghost small" id="copy-cidr-results" type="button">Copy Results</button></div>
+        <div class="result-highlight"><div class="result-label">Normalized input</div><p class="result-value" id="result-input"></p></div>
+        <div class="result-grid">
+          <div class="result-card"><div class="result-label">Network</div><p class="result-value" id="result-network"></p></div>
+          <div class="result-card"><div class="result-label">Broadcast</div><p class="result-value" id="result-broadcast"></p></div>
+          <div class="result-card"><div class="result-label">First host</div><p class="result-value" id="result-first-host"></p></div>
+          <div class="result-card"><div class="result-label">Last host</div><p class="result-value" id="result-last-host"></p></div>
+          <div class="result-card"><div class="result-label">Subnet mask</div><p class="result-value" id="result-mask"></p></div>
+          <div class="result-card"><div class="result-label">Wildcard mask</div><p class="result-value" id="result-wildcard"></p></div>
+          <div class="result-card"><div class="result-label">Total addresses</div><p class="result-value" id="result-total"></p></div>
+          <div class="result-card"><div class="result-label">Usable hosts</div><p class="result-value" id="result-usable"></p></div>
+          <div class="result-card" style="grid-column: 1 / -1"><div class="result-label">Binary subnet mask</div><p class="result-value" id="result-binary"></p></div>
+        </div>
       </aside>
     </section>
-    <section class="content-section"><div class="container prose"><h2>What does this CIDR calculator show?</h2><p>CIDR notation combines an IPv4 address with a prefix length. The prefix tells you how many bits identify the network.
-For example, <code>/24</code> corresponds to the subnet mask <code>255.255.255.0</code>, while <code>/27</code> provides 32 total addresses.</p><p>The calculator determines the network and broadcast addresses, the traditional usable host range, subnet and wildcard masks, and the total number of addresses. Special handling is included for <code>/31</code> point-to-point links and <code>/32</code> host routes.</p><h2>Common examples</h2><p>A <code>/24</code> contains 256 addresses, normally 254 usable hosts.
-A <code>/27</code> contains 32 addresses, normally 30 usable hosts. A <code>/30</code> contains four addresses and has traditionally been used for small point-to-point subnets.</p><div class="callout"><h3>Related project</h3><p>This browser tool was inspired by my offline ESP32 Pocket Admin Toolkit.
-The source, future article and video can be linked here without changing the calculator itself.</p><div class="external-links"><a class="button" data-external-link="blog" href="https://lepczynski.it">Read my blog</a><a class="button secondary" data-external-link="youtube" href="https://www.youtube.com/@WojciechLepczynski">YouTube channel</a><a class="button ghost" data-external-link="github" href="https://github.com/lepczynski-cloud/admin-toolkit">Source code</a><a class="button ghost" data-external-link="video" href="#" hidden>Watch the project video</a></div></div></div></section>
+    <section class="related-tools" aria-labelledby="related-heading">
+      <div class="container">
+        <div class="section-kicker">More local tools</div>
+        <h2 id="related-heading">Continue with another task</h2>
+        <div class="related-grid">
+          <a class="related-link" href="/chmod/"><span class="related-icon">rwx</span><span><strong>chmod Calculator</strong><small>Build Linux permissions.</small></span></a>
+          <a class="related-link" href="/time-zones/"><span class="related-icon">TZ</span><span><strong>Time Zone Converter</strong><small>Synchronize CEST, HKT and Zulu.</small></span></a>
+          <a class="related-link" href="/timestamp/"><span class="related-icon">10⁹</span><span><strong>Unix Timestamp</strong><small>Convert dates and epoch time.</small></span></a>
+        </div>
+      </div>
+    </section>
   </main>
-  <footer class="site-footer"><div class="footer-inner"><p class="footer-copy">© <span data-current-year></span> Wojciech Lepczyński. No cookies, no tracking, no backend.</p><div class="footer-links"><a href="/">All tools</a><a data-external-link="blog" href="https://lepczynski.it">Blog</a><a data-external-link="youtube" href="https://www.youtube.com/@WojciechLepczynski">YouTube</a><a data-external-link="github" href="https://github.com/lepczynski-cloud/admin-toolkit">GitHub</a></div></div></footer>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div>
+          <a class="footer-brand" href="/">
+            <img src="/assets/icons/logo-toolbox.svg" alt="" width="44" height="44">
+            <strong>Admin Toolkit</strong>
+          </a>
+          <p class="footer-summary">Practical browser tools for Linux, networking, automation and everyday system administration. No account, no backend and no telemetry.</p>
+        </div>
+        <div class="footer-column">
+          <h2>Tools</h2>
+          <a href="/cidr/">CIDR Calculator</a>
+          <a href="/chmod/">chmod Calculator</a>
+          <a href="/cron/">Cron Parser</a>
+          <a href="/time-zones/">Time Zone Converter</a>
+          <a href="/json-yaml/">JSON ⇄ YAML</a>
+        </div>
+        <div class="footer-column">
+          <h2>Projects</h2>
+          <a data-external-link="github" href="https://github.com/lepczynski-cloud/admin-toolkit">Online source code</a>
+          <a data-external-link="offlineGithub" href="https://github.com/lepczynski-cloud/crowpanel-Admin-Pocket-Toolkit">ESP32 source code</a>
+          <a data-external-link="article" href="https://lepczynski.it">Build article</a>
+          <a data-external-link="blog" href="https://lepczynski.it">Blog</a>
+          <a data-external-link="youtube" href="https://www.youtube.com/@WojciechLepczynski">YouTube channel</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© <span data-current-year></span> Wojciech Lepczyński. MIT licensed.</p>
+        <p>Calculations stay in your browser.</p>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>

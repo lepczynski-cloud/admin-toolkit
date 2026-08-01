@@ -1,7 +1,11 @@
-/cidr       /cidr/       301
-/chmod      /chmod/      301
-/cron       /cron/       301
-/timestamp  /timestamp/  301
+/cidr        /cidr/        301
+/chmod       /chmod/       301
+/password    /password/    301
+/cron        /cron/        301
+/timestamp   /timestamp/   301
+/base64      /base64/      301
+/time-zones  /time-zones/  301
+/json-yaml   /json-yaml/   301
 
 /favicon.ico                      /assets/icons/icon-192.png 302
 /apple-touch-icon.png             /assets/icons/icon-192.png 302

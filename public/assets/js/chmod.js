@@ -2,12 +2,12 @@
   "use strict";
 
   const modeInput = document.querySelector("#chmod-mode");
+  const filenameInput = document.querySelector("#chmod-filename");
   const symbolicOutput = document.querySelector("#chmod-symbolic");
   const numericOutput = document.querySelector("#chmod-numeric");
   const commandOutput = document.querySelector("#chmod-command");
   const errorBox = document.querySelector("#chmod-error");
   const checkboxes = [...document.querySelectorAll("[data-permission]")];
-
   const groups = ["owner", "group", "other"];
   const permissions = [
     { key: "read", symbol: "r", value: 4 },
@@ -23,24 +23,25 @@
     return mode;
   }
 
+  function safeFilename(value) {
+    const filename = value.trim();
+    if (!filename) return "filename";
+    if (/^[A-Za-z0-9._/-]+$/.test(filename)) return filename;
+    return `'${filename.replaceAll("'", "'\\''")}'`;
+  }
+
   function modeFromCheckboxes() {
-    return groups
-      .map((group) => permissions.reduce((sum, permission) => {
-        const checkbox = document.querySelector(`[data-permission="${group}-${permission.key}"]`);
-        return sum + (checkbox.checked ? permission.value : 0);
-      }, 0))
-      .join("");
+    return groups.map((group) => permissions.reduce((sum, permission) => {
+      const checkbox = document.querySelector(`[data-permission="${group}-${permission.key}"]`);
+      return sum + (checkbox.checked ? permission.value : 0);
+    }, 0)).join("");
   }
 
   function symbolicFromMode(mode) {
-    return [...mode]
-      .map((digit) => {
-        const value = Number(digit);
-        return permissions
-          .map((permission) => (value & permission.value ? permission.symbol : "-"))
-          .join("");
-      })
-      .join("");
+    return [...mode].map((digit) => {
+      const value = Number(digit);
+      return permissions.map((permission) => (value & permission.value ? permission.symbol : "-")).join("");
+    }).join("");
   }
 
   function setCheckboxesFromMode(mode) {
@@ -58,14 +59,12 @@
     if (updateInput) modeInput.value = normalized;
     numericOutput.textContent = normalized;
     symbolicOutput.textContent = symbolicFromMode(normalized);
-    commandOutput.textContent = `chmod ${normalized} filename`;
+    commandOutput.textContent = `chmod ${normalized} ${safeFilename(filenameInput.value)}`;
     errorBox.hidden = true;
   }
 
   checkboxes.forEach((checkbox) => {
-    checkbox.addEventListener("change", () => {
-      render(modeFromCheckboxes());
-    });
+    checkbox.addEventListener("change", () => render(modeFromCheckboxes()));
   });
 
   modeInput.addEventListener("input", () => {
@@ -75,9 +74,16 @@
       errorBox.hidden = false;
       return;
     }
-
     setCheckboxesFromMode(raw);
     render(raw, false);
+  });
+
+  filenameInput.addEventListener("input", () => {
+    try {
+      render(modeInput.value, false);
+    } catch {
+      // The mode input already presents its own validation state.
+    }
   });
 
   document.querySelectorAll("[data-chmod-preset]").forEach((button) => {

@@ -1,53 +1,52 @@
 # Admin Toolkit
 
-A small collection of free, privacy-friendly browser tools for Linux, networking, security and everyday system administration.
+Free, privacy-friendly browser tools for everyday Linux, networking, security, automation and system administration tasks.
 
 **Live site:** [admintoolkit.lepczynski.it](https://admintoolkit.lepczynski.it/)
 
 ![Admin Toolkit preview](public/assets/og/admin-toolkit.png)
 
-## Tools
+## Included tools
 
-- **CIDR Calculator** — network, broadcast, host range, subnet mask, wildcard mask and address counts.
+- **CIDR Calculator** — IPv4 network, broadcast, host range, subnet mask and wildcard mask.
 - **chmod Calculator** — visual Linux permissions with numeric and symbolic output.
-- **Random Password Generator** — configurable password length and character sets using the browser cryptography API.
-- **Cron Expression Generator** — common standard five-field Unix cron schedules.
-- **Unix Timestamp Converter** — dates, Unix seconds, milliseconds, UTC and local time.
+- **Secure Password Generator** — configurable passwords using the browser cryptography API.
+- **Cron Generator and Parser** — build or decode five-field Unix cron expressions and calculate the next five runs.
+- **Unix Timestamp Converter** — convert between dates, Unix seconds, milliseconds, UTC and local time.
+- **Base64 Encoder and Decoder** — UTF-8 and URL-safe Base64 conversion.
+- **Time Zone Converter** — synchronized CET/CEST, HKT and Zulu clocks with additional IANA zones.
+- **JSON ⇄ YAML Converter** — local conversion for JSON-compatible YAML documents.
 
-## How it works
+## Design goals
 
-The project uses plain HTML, CSS and JavaScript. There is no application backend, account system, analytics or cookie tracking. Calculations and password generation run locally in the browser.
-
-The site is also an installable PWA. After the first successful visit, its core pages and assets are available offline through a Service Worker cache.
+- Static HTML, CSS and JavaScript with no build step.
+- No application backend, user account, cookies or analytics.
+- Calculations are performed locally in the browser.
+- Installable PWA with offline support after the first successful visit.
+- Separate, shareable and indexable URL for every tool.
+- Automatic deployment from GitHub with Cloudflare Workers Builds.
 
 ## Run locally
 
-No build process is required:
+From the repository root:
 
 ```bash
-python -m http.server 8080 --directory public
-```
-
-On Windows, use `py` if `python` is not available:
-
-```powershell
-py -m http.server 8080 --directory public
+python3 -m http.server 8080 --directory public
 ```
 
 Then open `http://localhost:8080/`.
 
+## Related project
+
+The browser toolkit is a companion to the offline ESP32 Pocket Admin Toolkit:
+
+- [ESP32 source code](https://github.com/lepczynski-cloud/crowpanel-Admin-Pocket-Toolkit)
+- [Build article](https://lepczynski.it/en/other/pocket-admin-toolkit-a-practical-admin-tool-built-on-esp32/)
+- [Project video](https://www.youtube.com/watch?v=lrTHDVkG1Hk)
+
 ## Deployment
 
-The `public/` directory is deployed as static assets with Cloudflare Workers. Every push to the `main` branch triggers the production deployment.
-
-See [CLOUDFLARE-GITHUB.md](CLOUDFLARE-GITHUB.md) for the Cloudflare configuration.
-
-## Project story
-
-Admin Toolkit is the browser-based companion to my ESP32 Pocket Admin Toolkit project:
-
-- [Read the article](https://lepczynski.it/en/other/pocket-admin-toolkit-a-practical-admin-tool-built-on-esp32/)
-- [Watch the video](https://www.youtube.com/watch?v=lrTHDVkG1Hk)
+`wrangler.jsonc` publishes the `public/` directory as static Cloudflare Worker assets. No build command is required.
 
 ## License
 

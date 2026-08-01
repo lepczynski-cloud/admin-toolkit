@@ -1,44 +1,136 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cron Expression Generator — Standard Unix five-field schedules</title>
-  <meta name="description" content="Generate common standard five-field Unix cron expressions for intervals, hourly, daily, weekday, weekly and monthly jobs.">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cron Generator and Parser — Admin Toolkit</title>
+  <meta name="description" content="Generate or parse standard five-field Unix cron expressions and calculate the next five executions.">
   <link rel="canonical" href="https://admintoolkit.lepczynski.it/cron/">
-  <meta property="og:type" content="website"><meta property="og:title" content="Cron Expression Generator — Admin Toolkit"><meta property="og:description" content="Build common Unix cron schedules in your browser."><meta property="og:url" content="https://admintoolkit.lepczynski.it/cron/"><meta property="og:image" content="https://admintoolkit.lepczynski.it/assets/og/admin-toolkit.png"><meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#07111f">
-  <link rel="icon" href="/assets/icons/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/assets/icons/icon-192.png"><link rel="manifest" href="/site.webmanifest"><link rel="stylesheet" href="/assets/css/styles.css">
-  <script defer src="/assets/js/config.js"></script><script defer src="/assets/js/site.js"></script><script defer src="/assets/js/cron.js"></script>
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Cron Generator and Parser — Admin Toolkit">
+  <meta property="og:description" content="Generate or parse standard five-field Unix cron expressions and calculate the next five executions.">
+  <meta property="og:url" content="https://admintoolkit.lepczynski.it/cron/">
+  <meta property="og:image" content="https://admintoolkit.lepczynski.it/assets/og/admin-toolkit.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#090c12">
+  <link rel="icon" href="/assets/icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/icons/icon-192.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <script defer src="/assets/js/config.js"></script>
+  <script defer src="/assets/js/site.js"></script>
+  <script defer src="/assets/js/cron.js"></script>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a><header class="site-header"><div class="header-inner"><a class="brand" href="/"><span class="brand-mark" aria-hidden="true"></span><span>Admin Toolkit</span></a><nav class="site-nav" aria-label="Main navigation"><a href="/cidr/">CIDR</a><a href="/chmod/">chmod</a><a href="/password/">Password</a><a href="/cron/" aria-current="page">Cron</a><a href="/timestamp/">Timestamp</a></nav></div></header>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="/" aria-label="Admin Toolkit home">
+        <img class="brand-logo" src="/assets/icons/logo-toolbox.svg" alt="" width="56" height="56">
+        <span class="brand-copy">
+          <span class="brand-name">Admin Toolkit</span>
+          <span class="brand-tagline">Local tools for administrators</span>
+        </span>
+      </a>
+      <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false" data-nav-toggle>
+        <span class="nav-toggle-lines" aria-hidden="true"></span>
+      </button>
+      <nav class="site-nav" aria-label="Main navigation" data-site-nav>
+        <a href="/#tools">Tools</a>
+        <a href="/#offline-device">Offline device</a>
+        <a data-external-link="blog" href="https://lepczynski.it">Blog</a>
+        <a data-external-link="youtube" href="https://www.youtube.com/@WojciechLepczynski">YouTube</a>
+        <a class="nav-cta" data-external-link="github" href="https://github.com/lepczynski-cloud/admin-toolkit">GitHub ↗</a>
+      </nav>
+    </div>
+  </header>
   <main id="main">
-    <section class="tool-hero"><div class="container"><div class="breadcrumbs"><a href="/">Admin Toolkit</a><span aria-hidden="true">/</span><span>Cron Generator</span></div><span class="eyebrow">Task scheduling</span><h1>Cron Expression Generator</h1><p class="lead">Generate common standard five-field Unix cron schedules and copy the expression into your crontab.</p></div></section>
+    <section class="tool-hero">
+      <div class="container">
+        <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Admin Toolkit</a><span aria-hidden="true">/</span><span>Cron Generator &amp; Parser</span></nav>
+        <div class="tool-hero-grid">
+          <div>
+            <span class="tool-kicker">Automation</span>
+            <h1>Cron Generator & Parser</h1>
+            <p class="tool-intro">Build a common schedule or paste an existing five-field Unix cron expression. The tool explains it and calculates the next five executions.</p>
+          </div>
+          <div class="tool-status">Runs locally in your browser</div>
+        </div>
+      </div>
+    </section>
     <section class="container tool-layout">
       <div class="panel">
+        <div class="panel-heading"><div><h2>Build or enter a schedule</h2><p>Standard Unix five-field syntax: minute, hour, day, month and weekday.</p></div></div>
         <div class="form-grid">
-          <div class="form-group full"><label for="cron-pattern">Schedule type</label><select id="cron-pattern"><option value="minutes">Every N minutes</option><option value="hourly">Every hour</option><option value="daily" selected>Every day</option><option value="weekdays">Monday to Friday</option><option value="weekly">Every week</option><option value="monthly">Every month</option><option value="custom">Custom expression</option></select></div>
-          <div class="form-group full" data-cron-group="minutes"><label for="cron-interval">Minute interval</label><input id="cron-interval" type="number" min="1" max="59" value="5"></div>
-          <div class="form-group full" data-cron-group="hourly"><label for="cron-minute">Minute of every hour</label><input id="cron-minute" type="number" min="0" max="59" value="0"></div>
-          <div class="form-group full" data-cron-group="daily weekdays weekly monthly"><label for="cron-time">Time</label><input id="cron-time" type="time" value="08:00"></div>
-          <div class="form-group full" data-cron-group="weekly"><label for="cron-weekday">Day of week</label><select id="cron-weekday"><option value="1">Monday</option><option value="2">Tuesday</option><option value="3">Wednesday</option><option value="4">Thursday</option><option value="5">Friday</option><option value="6">Saturday</option><option value="0">Sunday</option></select></div>
-          <div class="form-group full" data-cron-group="monthly"><label for="cron-monthday">Day of month</label><input id="cron-monthday" type="number" min="1" max="31" value="1"></div>
-          <div class="form-group full" data-cron-group="custom"><label for="cron-custom">Five-field expression</label><input id="cron-custom" class="mono" type="text" value="0 8 * * 1-5" autocomplete="off" spellcheck="false"><p class="help-text">Order: minute, hour, day of month, month, day of week.</p></div>
+          <div class="form-group full"><label for="cron-pattern">Schedule type</label><select id="cron-pattern"><option value="minutes">Every N minutes</option><option value="hourly">Hourly</option><option value="daily">Daily</option><option value="weekdays" selected>Weekdays</option><option value="weekly">Weekly</option><option value="monthly">Monthly</option><option value="custom">Custom expression</option></select></div>
+          <div class="form-group" data-cron-group="minutes"><label for="cron-interval">Minute interval</label><input id="cron-interval" type="number" min="1" max="59" value="5"></div>
+          <div class="form-group" data-cron-group="hourly"><label for="cron-minute">Minute past the hour</label><input id="cron-minute" type="number" min="0" max="59" value="0"></div>
+          <div class="form-group" data-cron-group="daily weekdays weekly monthly"><label for="cron-time">Time</label><input id="cron-time" type="time" value="08:00"></div>
+          <div class="form-group" data-cron-group="weekly"><label for="cron-weekday">Weekday</label><select id="cron-weekday"><option value="0">Sunday</option><option value="1" selected>Monday</option><option value="2">Tuesday</option><option value="3">Wednesday</option><option value="4">Thursday</option><option value="5">Friday</option><option value="6">Saturday</option></select></div>
+          <div class="form-group" data-cron-group="monthly"><label for="cron-monthday">Day of month</label><input id="cron-monthday" type="number" min="1" max="31" value="1"></div>
+          <div class="form-group full"><label for="cron-expression-input">Cron expression</label><input id="cron-expression-input" class="mono" type="text" value="0 8 * * 1-5" autocomplete="off" spellcheck="false"><div class="cron-field-labels" aria-hidden="true"><span>minute</span><span>hour</span><span>day</span><span>month</span><span>weekday</span></div></div>
         </div>
-        <div class="preset-row" style="margin-top:1rem"><button class="button ghost small" type="button" data-cron-preset="minutes">Every 5 min</button><button class="button ghost small" type="button" data-cron-preset="daily" data-cron-time="08:00">Daily 08:00</button><button class="button ghost small" type="button" data-cron-preset="weekdays" data-cron-time="09:00">Weekdays 09:00</button><button class="button ghost small" type="button" data-cron-preset="monthly" data-cron-time="00:00">Monthly</button></div>
-        <div class="alert error" id="cron-error" role="alert" hidden></div><div class="privacy-note"><span aria-hidden="true">✓</span><div><strong>Local generator.</strong> Schedule settings are not submitted or logged anywhere.</div></div>
+        <div class="preset-row" style="margin-top: 1rem">
+          <button class="button ghost small" type="button" data-cron-expression="*/15 * * * *">Every 15 minutes</button>
+          <button class="button ghost small" type="button" data-cron-expression="0 2 * * *">Daily at 02:00</button>
+          <button class="button ghost small" type="button" data-cron-expression="30 9 * * 1-5">Weekdays at 09:30</button>
+          <button class="button ghost small" type="button" data-cron-expression="0 0 1 * *">First day monthly</button>
+        </div>
+        <div class="action-row" style="margin-top: 1.2rem"><button class="button" id="parse-cron" type="button">Explain and Calculate Runs</button><button class="button secondary" type="button" data-copy-target="#cron-expression-input">Copy Expression</button></div>
+        <div class="alert error" id="cron-error" role="alert" hidden></div>
       </div>
-      <aside class="panel sticky" aria-live="polite">
-        <div class="result-highlight"><div class="result-label">Cron expression</div><p class="result-value" id="cron-expression">0 8 * * *</p></div>
-        <div class="cron-field-labels" aria-hidden="true"><span>minute</span><span>hour</span><span>day</span><span>month</span><span>weekday</span></div>
-        <div class="result-card" style="margin-top:1rem"><div class="result-label">Meaning</div><p class="result-value" id="cron-description"></p></div>
+      <aside class="panel sticky">
+        <div class="panel-heading"><div><h2>Schedule meaning</h2><p>Calculated in <strong id="cron-timezone"></strong>.</p></div></div>
+        <div class="result-highlight"><div class="result-label">Plain-English description</div><p class="result-value" id="cron-description"></p></div>
         <div class="alert note" id="cron-note"></div>
-        <div class="action-row" style="margin-top:1rem"><button class="button secondary" type="button" data-copy-target="#cron-expression">Copy expression</button></div>
+        <h3 style="margin-top: 1.4rem">Next five executions</h3>
+        <ol class="next-runs" id="cron-next-runs"></ol>
       </aside>
     </section>
-    <section class="content-section"><div class="container prose"><h2>Standard Unix cron format</h2><p>This generator uses the common five-field format: minute, hour, day of month, month and day of week. The expression <code>0 8 * * 1-5</code> runs at 08:00 from Monday through Friday.</p><p>The actual execution time depends on the timezone configured on the machine or container running the cron daemon.
-Public holidays are not automatically excluded, and jobs scheduled on day 29, 30 or 31 will not run in months that lack that date.</p><h2>Not every scheduler uses the same syntax</h2><p>Quartz, AWS EventBridge, Kubernetes CronJobs and other platforms can add fields or use different day-of-week rules.
-Treat the result here as standard Unix cron and verify it against the documentation for the target system.</p><div class="callout"><h3>Learn and build with me</h3><p>Find more practical Linux, cloud and electronics content on my blog and YouTube channel.</p><div class="external-links"><a class="button" data-external-link="blog" href="https://lepczynski.it">Visit the blog</a><a class="button secondary" data-external-link="youtube" href="https://www.youtube.com/@WojciechLepczynski">YouTube channel</a><a class="button ghost" data-external-link="github" href="https://github.com/lepczynski-cloud/admin-toolkit">Source code</a><a class="button ghost" data-external-link="video" href="#" hidden>Watch the project video</a></div></div></div></section>
+    <section class="related-tools" aria-labelledby="related-heading">
+      <div class="container">
+        <div class="section-kicker">More local tools</div>
+        <h2 id="related-heading">Continue with another task</h2>
+        <div class="related-grid">
+          <a class="related-link" href="/timestamp/"><span class="related-icon">10⁹</span><span><strong>Unix Timestamp</strong><small>Convert dates and epoch time.</small></span></a>
+          <a class="related-link" href="/time-zones/"><span class="related-icon">TZ</span><span><strong>Time Zone Converter</strong><small>Compare CEST, HKT and Zulu.</small></span></a>
+          <a class="related-link" href="/json-yaml/"><span class="related-icon">{ }</span><span><strong>JSON ⇄ YAML</strong><small>Convert configuration files.</small></span></a>
+        </div>
+      </div>
+    </section>
   </main>
-  <footer class="site-footer"><div class="footer-inner"><p class="footer-copy">© <span data-current-year></span> Wojciech Lepczyński. No cookies, no tracking, no backend.</p><div class="footer-links"><a href="/">All tools</a><a data-external-link="blog" href="https://lepczynski.it">Blog</a><a data-external-link="youtube" href="https://www.youtube.com/@WojciechLepczynski">YouTube</a><a data-external-link="github" href="https://github.com/lepczynski-cloud/admin-toolkit">GitHub</a></div></div></footer>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div>
+          <a class="footer-brand" href="/">
+            <img src="/assets/icons/logo-toolbox.svg" alt="" width="44" height="44">
+            <strong>Admin Toolkit</strong>
+          </a>
+          <p class="footer-summary">Practical browser tools for Linux, networking, automation and everyday system administration. No account, no backend and no telemetry.</p>
+        </div>
+        <div class="footer-column">
+          <h2>Tools</h2>
+          <a href="/cidr/">CIDR Calculator</a>
+          <a href="/chmod/">chmod Calculator</a>
+          <a href="/cron/">Cron Parser</a>
+          <a href="/time-zones/">Time Zone Converter</a>
+          <a href="/json-yaml/">JSON ⇄ YAML</a>
+        </div>
+        <div class="footer-column">
+          <h2>Projects</h2>
+          <a data-external-link="github" href="https://github.com/lepczynski-cloud/admin-toolkit">Online source code</a>
+          <a data-external-link="offlineGithub" href="https://github.com/lepczynski-cloud/crowpanel-Admin-Pocket-Toolkit">ESP32 source code</a>
+          <a data-external-link="article" href="https://lepczynski.it">Build article</a>
+          <a data-external-link="blog" href="https://lepczynski.it">Blog</a>
+          <a data-external-link="youtube" href="https://www.youtube.com/@WojciechLepczynski">YouTube channel</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© <span data-current-year></span> Wojciech Lepczyński. MIT licensed.</p>
+        <p>Calculations stay in your browser.</p>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>

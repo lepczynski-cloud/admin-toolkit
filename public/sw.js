@@ -1,4 +1,4 @@
-const CACHE_NAME = "admin-toolkit-v4";
+const CACHE_NAME = "admin-toolkit-v5";
 const PRECACHE_URLS = [
   "/",
   "/404.html",
@@ -7,6 +7,9 @@ const PRECACHE_URLS = [
   "/password/",
   "/cron/",
   "/timestamp/",
+  "/base64/",
+  "/time-zones/",
+  "/json-yaml/",
   "/assets/css/styles.css",
   "/assets/js/config.js",
   "/assets/js/site.js",
@@ -15,9 +18,14 @@ const PRECACHE_URLS = [
   "/assets/js/password.js",
   "/assets/js/cron.js",
   "/assets/js/timestamp.js",
+  "/assets/js/base64.js",
+  "/assets/js/time-zones.js",
+  "/assets/js/json-yaml.js",
   "/assets/icons/icon.svg",
+  "/assets/icons/logo-toolbox.svg",
   "/assets/icons/icon-192.png",
   "/assets/icons/icon-512.png",
+  "/assets/icons/icon-maskable-512.png",
   "/site.webmanifest"
 ];
 
@@ -56,7 +64,6 @@ async function staleWhileRevalidate(request) {
   const update = fetch(request)
     .then((response) => cacheResponse(request, response))
     .catch(() => cached);
-
   return cached || update;
 }
 

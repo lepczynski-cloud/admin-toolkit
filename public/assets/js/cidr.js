@@ -7,7 +7,6 @@
   const errorBox = document.querySelector("#cidr-error");
   const resultBox = document.querySelector("#cidr-results");
   const summary = document.querySelector("#cidr-summary");
-
   const outputs = {
     input: document.querySelector("#result-input"),
     network: document.querySelector("#result-network"),
@@ -17,13 +16,13 @@
     mask: document.querySelector("#result-mask"),
     wildcard: document.querySelector("#result-wildcard"),
     total: document.querySelector("#result-total"),
-    usable: document.querySelector("#result-usable")
+    usable: document.querySelector("#result-usable"),
+    binary: document.querySelector("#result-binary")
   };
 
   function parseIPv4(value) {
     const parts = value.split(".");
     if (parts.length !== 4) throw new Error("Enter a valid IPv4 address.");
-
     const octets = parts.map((part) => {
       if (!/^\d{1,3}$/.test(part)) throw new Error("IPv4 octets must contain only numbers.");
       const octet = Number(part);
@@ -32,13 +31,16 @@
       }
       return octet;
     });
-
     return octets.reduce((result, octet) => (result << 8n) | BigInt(octet), 0n);
   }
 
   function formatIPv4(value) {
+    return [24n, 16n, 8n, 0n].map((shift) => Number((value >> shift) & 255n)).join(".");
+  }
+
+  function binaryIPv4(value) {
     return [24n, 16n, 8n, 0n]
-      .map((shift) => Number((value >> shift) & 255n))
+      .map((shift) => Number((value >> shift) & 255n).toString(2).padStart(8, "0"))
       .join(".");
   }
 
@@ -46,7 +48,6 @@
     const normalized = value.trim();
     const match = normalized.match(/^([^/]+)\/(\d{1,2})$/);
     if (!match) throw new Error("Use the format 192.168.1.10/24.");
-
     const ip = parseIPv4(match[1].trim());
     const prefix = Number(match[2]);
     if (!Number.isInteger(prefix) || prefix < 0 || prefix > 32) {
@@ -59,7 +60,6 @@
     const network = ip & mask;
     const broadcast = network | wildcard;
     const total = 1n << BigInt(hostBits);
-
     let firstHost;
     let lastHost;
     let usable;
@@ -93,6 +93,7 @@
       wildcard: formatIPv4(wildcard),
       total: total.toLocaleString("en-US"),
       usable: usable.toLocaleString("en-US"),
+      binary: binaryIPv4(mask),
       note
     };
   }
@@ -107,8 +108,8 @@
     outputs.wildcard.textContent = result.wildcard;
     outputs.total.textContent = result.total;
     outputs.usable.textContent = result.usable;
+    outputs.binary.textContent = result.binary;
     summary.textContent = result.note;
-
     errorBox.hidden = true;
     resultBox.hidden = false;
   }
@@ -132,6 +133,10 @@
     runCalculation();
   });
 
+  input.addEventListener("input", () => {
+    if (input.value.includes("/")) runCalculation();
+  });
+
   document.querySelectorAll("[data-cidr-example]").forEach((button) => {
     button.addEventListener("click", () => {
       input.value = button.dataset.cidrExample;
@@ -140,20 +145,19 @@
   });
 
   document.querySelector("#copy-cidr-results")?.addEventListener("click", async (event) => {
-    const result = calculate(input.value);
-    const text = [
-      `Input: ${result.normalized}`,
-      `Network: ${result.network}/${result.prefix}`,
-      `Broadcast: ${result.broadcast}`,
-      `First host: ${result.firstHost}`,
-      `Last host: ${result.lastHost}`,
-      `Subnet mask: ${result.mask}`,
-      `Wildcard mask: ${result.wildcard}`,
-      `Total addresses: ${result.total}`,
-      `Usable hosts: ${result.usable}`
-    ].join("\n");
-
     try {
+      const result = calculate(input.value);
+      const text = [
+        `Input: ${result.normalized}`,
+        `Network: ${result.network}/${result.prefix}`,
+        `Broadcast: ${result.broadcast}`,
+        `First host: ${result.firstHost}`,
+        `Last host: ${result.lastHost}`,
+        `Subnet mask: ${result.mask}`,
+        `Wildcard mask: ${result.wildcard}`,
+        `Total addresses: ${result.total}`,
+        `Usable hosts: ${result.usable}`
+      ].join("\n");
       await navigator.clipboard.writeText(text);
       const button = event.currentTarget;
       const previousText = button.textContent;
@@ -164,7 +168,7 @@
         button.classList.remove("is-success");
       }, 1400);
     } catch (error) {
-      console.error("Copy failed", error);
+      showError(error instanceof Error ? error.message : "Unable to copy these results.");
     }
   });
 
