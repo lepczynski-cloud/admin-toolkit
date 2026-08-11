@@ -42,7 +42,7 @@ The browser toolkit is a companion to the offline ESP32 Pocket Admin Toolkit:
 
 - [ESP32 source code](https://github.com/lepczynski-cloud/crowpanel-Admin-Pocket-Toolkit)
 - [Build article](https://lepczynski.it/en/other/pocket-admin-toolkit-a-practical-admin-tool-built-on-esp32/)
-- [Project video](https://www.youtube.com/watch?v=lrTHDVkG1Hk)
+- [ESP_32 Project video](https://www.youtube.com/watch?v=In7P1azFg-0)
 
 ## Deployment
 
