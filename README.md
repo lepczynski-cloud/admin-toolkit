@@ -36,13 +36,19 @@ python3 -m http.server 8080 --directory public
 
 Then open `http://localhost:8080/`.
 
-## Related project
+## Separate ESP32 hardware edition
 
-The browser toolkit is a companion to the offline ESP32 Pocket Admin Toolkit:
+This repository is the **online browser version** at [admintoolkit.lepczynski.it](https://admintoolkit.lepczynski.it/). Its calculators are implemented in local JavaScript and it does not use an application backend. The PWA supports offline use after the necessary pages have been cached.
+
+The physical **Admin Pocket Toolkit** is a different open-source project with eight touchscreen tools for the Elecrow 2.8-inch ESP32 CrowPanel. It has its own site:
+
+**[ESP32 Admin Pocket Toolkit: device page and browser firmware installer](https://esp32-admin-toolkit.lepczynski.it/)**
+
+The installer provides the most recent *successfully built* firmware from the ESP32 repository. For the supported device, you can install it over USB using a compatible desktop browser, without setting up a local IDE or compiling the firmware yourself. It is not intended for other ESP32 board variants.
 
 - [ESP32 source code](https://github.com/lepczynski-cloud/crowpanel-Admin-Pocket-Toolkit)
-- [Build article](https://lepczynski.it/en/other/pocket-admin-toolkit-a-practical-admin-tool-built-on-esp32/)
-- [ESP_32 Project video](https://www.youtube.com/watch?v=In7P1azFg-0)
+- [ESP32 Toolkit v2 video](https://www.youtube.com/watch?v=In7P1azFg-0)
+- [Earlier build article](https://lepczynski.it/en/other/pocket-admin-toolkit-a-practical-admin-tool-built-on-esp32/)
 
 ## Deployment
 

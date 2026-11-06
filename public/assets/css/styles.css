@@ -1746,3 +1746,10 @@ code {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Separate ESP32 device edition: compact, no second video embed in the browser app. */
+.offline-device-aside{border:1px solid rgba(133,184,212,.3);border-radius:20px;padding:clamp(24px,4vw,44px);background:linear-gradient(135deg,#132436,#0b1928);display:flex;flex-direction:column;gap:17px;justify-content:center;min-height:300px}
+.offline-device-kicker{color:#85e6c8;letter-spacing:.15em;font-size:12px;font-weight:800}
+.offline-device-aside strong{color:#f2f6f9;font-size:clamp(25px,3vw,39px);line-height:1.23;letter-spacing:-.04em}
+.offline-device-aside p{color:#b8c8d6;margin:0;line-height:1.6}
+.offline-device-aside a{color:#85e6c8;font-weight:700}
