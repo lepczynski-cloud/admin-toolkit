@@ -1,4 +1,4 @@
-const CACHE_NAME = "admin-toolkit-v6";
+const CACHE_NAME = "admin-toolkit-v7";
 const PRECACHE_URLS = [
   "/",
   "/404.html",

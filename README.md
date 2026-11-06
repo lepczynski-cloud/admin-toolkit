@@ -40,7 +40,7 @@ Then open `http://localhost:8080/`.
 
 This repository is the **online browser version** at [admintoolkit.lepczynski.it](https://admintoolkit.lepczynski.it/). Its calculators are implemented in local JavaScript and it does not use an application backend. The PWA supports offline use after the necessary pages have been cached.
 
-The physical **Admin Pocket Toolkit** is a different open-source project with eight touchscreen tools for the Elecrow 2.8-inch ESP32 CrowPanel. It has its own site:
+The physical **Admin Pocket Toolkit** is a separate open-source project with eight touchscreen tools for the Elecrow 2.8-inch ESP32 CrowPanel. The online homepage shows its real device cover image, served by the companion ESP32 site, and links to its browser-based firmware installer:
 
 **[ESP32 Admin Pocket Toolkit: device page and browser firmware installer](https://esp32-admin-toolkit.lepczynski.it/)**
 
@@ -48,11 +48,11 @@ The installer provides the most recent *successfully built* firmware from the ES
 
 - [ESP32 source code](https://github.com/lepczynski-cloud/crowpanel-Admin-Pocket-Toolkit)
 - [ESP32 Toolkit v2 video](https://www.youtube.com/watch?v=In7P1azFg-0)
-- [Earlier build article](https://lepczynski.it/en/other/pocket-admin-toolkit-a-practical-admin-tool-built-on-esp32/)
+- [ESP32 Toolkit v2 article](https://lepczynski.it/en/other/pocket-admin-toolkit-v2-for-esp32-more-admin-tools-in-your-pocket/)
 
 ## Deployment
 
-`wrangler.jsonc` publishes the `public/` directory as static Cloudflare Worker assets. No build command is required.
+`wrangler.jsonc` publishes the `public/` directory as static Cloudflare Worker assets. No build command, GitHub Actions workflow or backend is required. Updating `main` triggers deployment through the existing Cloudflare Git integration. The optional ESP32 image is loaded from the separate project website; all browser calculators remain local and PWA tools work offline after caching.
 
 ## License
 

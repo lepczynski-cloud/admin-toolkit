@@ -88,6 +88,13 @@
     frame.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(videoId)}?rel=0`;
   });
 
+  // Keep the device panel legible if the companion website image is unavailable.
+  document.querySelectorAll("[data-esp32-photo]").forEach((image) => {
+    const showFallback = () => { image.hidden = true; };
+    image.addEventListener("error", showFallback);
+    if (image.complete && image.naturalWidth === 0) showFallback();
+  });
+
   document.querySelectorAll("[data-copy-target]").forEach((button) => {
     button.addEventListener("click", async () => {
       const target = document.querySelector(button.dataset.copyTarget);

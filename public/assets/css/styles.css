@@ -1747,9 +1747,42 @@ code {
   }
 }
 
-/* Separate ESP32 device edition: compact, no second video embed in the browser app. */
-.offline-device-aside{border:1px solid rgba(133,184,212,.3);border-radius:20px;padding:clamp(24px,4vw,44px);background:linear-gradient(135deg,#132436,#0b1928);display:flex;flex-direction:column;gap:17px;justify-content:center;min-height:300px}
-.offline-device-kicker{color:#85e6c8;letter-spacing:.15em;font-size:12px;font-weight:800}
-.offline-device-aside strong{color:#f2f6f9;font-size:clamp(25px,3vw,39px);line-height:1.23;letter-spacing:-.04em}
-.offline-device-aside p{color:#b8c8d6;margin:0;line-height:1.6}
-.offline-device-aside a{color:#85e6c8;font-weight:700}
+
+/* ESP32 hardware companion: the photograph is served from our ESP32 Cloudflare site. */
+.offline-grid { align-items: center; }
+.offline-copy h2 { max-width: 630px; }
+.offline-copy > p:not(.section-lead):not(.offline-install-note) { max-width: 590px; color: var(--muted); }
+.offline-quick-facts { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.25rem 0 1.5rem; }
+.offline-quick-facts span { display: inline-flex; align-items: center; min-height: 33px; padding: .3rem .72rem; border: 1px solid rgba(77,214,197,.24); border-radius: 999px; background: rgba(77,214,197,.065); color: #c5f3e9; font-weight: 650; font-size: .77rem; }
+.offline-actions { gap: .65rem; }
+.offline-actions .button { text-align: center; }
+.offline-install-note { margin: 1rem 0 0; color: #9aa9bb; font-size: .83rem; line-height: 1.55; }
+.offline-device-showcase { position: relative; z-index: 1; min-width: 0; overflow: hidden; padding: clamp(8px,1vw,12px); border: 1px solid rgba(77,214,197,.24); border-radius: 24px; background: linear-gradient(145deg, #152637 0%, #0c1724 60%, #111a2c 100%); box-shadow: 0 25px 65px rgba(0,0,0,.28), 0 0 46px rgba(77,214,197,.075); animation: offline-levitate 9s ease-in-out infinite; }
+.offline-device-photo { position: relative; display: block; overflow: hidden; isolation: isolate; aspect-ratio: 16 / 9; color: var(--text); border: 1px solid rgba(255,255,255,.045); border-radius: 16px; background: radial-gradient(ellipse at 65% 45%, #193e4e, #09151f 75%); text-decoration: none; }
+.offline-device-photo:hover { color: var(--text); }
+.offline-device-photo img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: contain; transition: transform .6s ease; }
+.offline-device-photo:hover img { transform: scale(1.025); }
+.offline-device-photo::after { position: absolute; z-index: 2; inset: 0; content: ""; pointer-events: none; background: linear-gradient(180deg, rgba(0,0,0,.3), transparent 36%, transparent 70%, rgba(2,9,14,.42)); }
+.offline-photo-fallback { position: absolute; top: 50%; left: 10%; right: 10%; color: #a8d6d2; font-weight: 750; text-align: center; font-size: clamp(1.1rem,2.4vw,1.6rem); transform: translateY(-50%); }
+.offline-photo-label { position: absolute; z-index: 3; top: .85rem; left: .85rem; display: inline-flex; gap: .5rem; align-items: center; max-width: calc(100% - 1.7rem); padding: .38rem .7rem; color: #e2faf1; border: 1px solid rgba(205,255,230,.26); background: rgba(3,12,19,.76); backdrop-filter: blur(10px); border-radius: 999px; font-size: .72rem; font-weight: 800; letter-spacing: .025em; }
+.offline-live-dot { width: 7px; height: 7px; flex: 0 0 auto; border-radius: 50%; background: #51f0b6; box-shadow: 0 0 0 3px rgba(81,240,182,.12); }
+.offline-device-detail { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.15rem clamp(.65rem,2vw,1rem) .6rem; }
+.offline-device-detail > div { min-width: 0; display: grid; gap: .22rem; }
+.offline-device-kicker { color: #76dbc6; font-size: .65rem; font-weight: 800; letter-spacing: .13em; }
+.offline-device-detail strong { display: block; font-size: clamp(1.05rem,2vw,1.27rem); line-height: 1.25; color: #f3f8fa; letter-spacing: -.025em; }
+.offline-device-detail a { color: #9ce5db; font-size: .79rem; font-weight: 750; line-height: 1.3; text-decoration: none; text-align: right; }
+.offline-device-detail a:hover { color: white; text-decoration: underline; }
+@keyframes offline-levitate { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@media (max-width: 920px) { .offline-grid { gap: 2rem; } .offline-device-showcase { max-width: 690px; width: 100%; margin-inline: auto; } }
+@media (max-width: 680px) {
+  .offline-grid { gap: 1.55rem; }
+  .offline-device-showcase { order: -1; }
+  .offline-quick-facts { margin: 1.1rem 0 1.3rem; gap: .4rem; }
+  .offline-quick-facts span { font-size: .73rem; }
+  .offline-device-showcase { border-radius: 18px; padding: 7px; animation: none; }
+  .offline-device-photo { border-radius: 12px; }
+  .offline-photo-label { top: .55rem; left: .55rem; padding: .28rem .5rem; font-size: .63rem; }
+  .offline-device-detail { padding: .85rem .65rem .45rem; flex-wrap: wrap; }
+  .offline-device-detail a { text-align: left; }
+}
+@media (prefers-reduced-motion: reduce) { .offline-device-showcase { animation: none; } .offline-device-photo img { transition: none; } }

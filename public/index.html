@@ -36,7 +36,7 @@
       </button>
       <nav class="site-nav" aria-label="Main navigation" data-site-nav>
         <a href="/#tools">Tools</a>
-        <a href="https://esp32-admin-toolkit.lepczynski.it/">ESP32 device &amp; installer</a>
+        <a href="https://esp32-admin-toolkit.lepczynski.it/">ESP32 Edition</a>
         <a data-external-link="blog" href="https://lepczynski.it">Blog</a>
         <a data-external-link="youtube" href="https://www.youtube.com/@WojciechLepczynski">YouTube</a>
         <a class="nav-cta" data-external-link="github" href="https://github.com/lepczynski-cloud/admin-toolkit">GitHub ↗</a>
@@ -143,22 +143,37 @@
       </div>
     </section>
 
-    <section class="section offline-section" id="offline-device">
+    <section class="section offline-section" id="offline-device" aria-labelledby="esp32-title">
       <div class="container offline-grid">
         <div class="offline-copy">
-          <div class="section-kicker">A separate hardware project</div>
-          <h2>Admin Toolkit, now on an ESP32 touchscreen.</h2>
-          <p class="section-lead">This website is the browser-based version. I also built a separate offline-first toolkit for the Elecrow CrowPanel 2.8-inch ESP32 with eight touch-friendly tools, including Wi-Fi and BLE scanning, CIDR, VLSM and cron.</p>
-          <p>The ESP32 project has its own website with a device demo, source code and a browser installer for the latest successfully built firmware. No local PlatformIO or IDE setup is needed to flash the supported device.</p>
-          <div class="button-row">
-            <a class="button" href="https://esp32-admin-toolkit.lepczynski.it/">Explore ESP32 Toolkit &amp; install firmware</a>
+          <div class="section-kicker">Same idea, different device</div>
+          <h2 id="esp32-title">Admin Toolkit, now on a tiny ESP32 screen.</h2>
+          <p class="section-lead">The browser tools are here when you need a keyboard. I also built a separate pocket-sized version for an Elecrow CrowPanel 2.8-inch touchscreen.</p>
+          <p>Eight touch-friendly tools for networking, Linux and infrastructure planning, including CIDR, VLSM, cron, Wi-Fi and BLE scanning. The firmware runs on the device, with no cloud backend or account required.</p>
+          <div class="offline-quick-facts" aria-label="ESP32 project highlights">
+            <span>8 practical tools</span>
+            <span>2.8-inch touchscreen</span>
+            <span>Offline-first</span>
           </div>
+          <div class="button-row offline-actions">
+            <a class="button" href="https://esp32-admin-toolkit.lepczynski.it/">See the device &amp; install firmware <span aria-hidden="true">↗</span></a>
+            <a class="button secondary" href="https://www.youtube.com/watch?v=In7P1azFg-0" target="_blank" rel="noopener noreferrer">Watch the video <span aria-hidden="true">↗</span></a>
+          </div>
+          <p class="offline-install-note">For the supported CrowPanel, installation works in a compatible desktop browser. No local PlatformIO setup needed.</p>
         </div>
-        <div class="offline-device-aside" aria-label="About the ESP32 edition">
-          <span class="offline-device-kicker">ESP32 EDITION</span>
-          <strong>8 tools.<br>2.8-inch touchscreen.<br>No cloud.</strong>
-          <p>A different interface and feature set, designed for a small device rather than the desktop browser.</p>
-          <a href="https://github.com/lepczynski-cloud/crowpanel-Admin-Pocket-Toolkit">ESP32 source code &rarr;</a>
+        <div class="offline-device-showcase">
+          <a class="offline-device-photo" href="https://esp32-admin-toolkit.lepczynski.it/" aria-label="View the Admin Pocket Toolkit device and firmware installer">
+            <span class="offline-photo-fallback" aria-hidden="true">A pocket-sized tool for bigger tasks.</span>
+            <img src="https://esp32-admin-toolkit.lepczynski.it/assets/device-photo.jpg"
+                 alt="Actual ESP32 CrowPanel running the Admin Pocket Toolkit, as seen in the project video"
+                 width="1280" height="720" loading="lazy" decoding="async" referrerpolicy="no-referrer"
+                 data-esp32-photo>
+            <span class="offline-photo-label"><span class="offline-live-dot" aria-hidden="true"></span> Real hardware · Open source</span>
+          </a>
+          <div class="offline-device-detail">
+            <div><span class="offline-device-kicker">ESP32 EDITION</span><strong>8 tools. No cloud.</strong></div>
+            <a href="https://github.com/lepczynski-cloud/crowpanel-Admin-Pocket-Toolkit" target="_blank" rel="noopener noreferrer">Explore the source code <span aria-hidden="true">↗</span></a>
+          </div>
         </div>
       </div>
     </section>
